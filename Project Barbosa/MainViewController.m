@@ -20,7 +20,7 @@
 	// Do any additional setup after loading the view, typically from a nib.
     self.title = @"MainViewController";
     
-    NSLog(@"MainViewController Loaded");
+    NSLog(@"MainViewController Loaded.");
 }
 
 - (void)didReceiveMemoryWarning

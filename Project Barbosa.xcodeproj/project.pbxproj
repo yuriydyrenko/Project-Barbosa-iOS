@@ -53,6 +53,8 @@
 		5B03B71318AAA3970009FF93 /* Project BarbosaTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Project BarbosaTests-Info.plist"; sourceTree = "<group>"; };
 		5B03B71518AAA3970009FF93 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5B03B71718AAA3970009FF93 /* Project_BarbosaTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Project_BarbosaTests.m; sourceTree = "<group>"; };
+		5B03B72118AAB11D0009FF93 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		5B03B72218AAB1C90009FF93 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +84,8 @@
 		5B03B6E018AAA3970009FF93 = {
 			isa = PBXGroup;
 			children = (
+				5B03B72118AAB11D0009FF93 /* .gitignore */,
+				5B03B72218AAB1C90009FF93 /* README.md */,
 				5B03B6F218AAA3970009FF93 /* Project Barbosa */,
 				5B03B71118AAA3970009FF93 /* Project BarbosaTests */,
 				5B03B6EB18AAA3970009FF93 /* Frameworks */,
