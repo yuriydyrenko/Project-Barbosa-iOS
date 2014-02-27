@@ -10,10 +10,9 @@
 
 @interface Trip : JSONModel
 
-@property (nonatomic, copy) NSString *id;
+@property (nonatomic, copy) NSString *_id;
 @property (nonatomic, copy) NSString *name;
-@property (nonatomic, copy) NSArray *itinerary;
 
-- (id)initWithID:(NSString *)id name:(NSString *)name;
+- (id)initWithID:(NSString *)_id name:(NSString *)name;
 
 @end

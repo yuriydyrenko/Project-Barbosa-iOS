@@ -7,6 +7,8 @@
 //
 
 #import "MainViewController.h"
+#import "PBHTTPSessionManager.h"
+#import "AFNetworking.h"
 #import "TripsCollectionView.h"
 #import "TripsCollectionViewCell.h"
 #import "Trip.h"
@@ -16,8 +18,8 @@ static NSString *cellIdentifier = @"TripsCollectionViewCell";
 
 @interface MainViewController ()
 
-@property (nonatomic, strong) NSMutableArray *userTrips;
-@property (nonatomic, weak) IBOutlet TripsCollectionView *userTripsCollectionView;
+@property (nonatomic, strong) NSMutableArray *trips;
+@property (nonatomic, weak) IBOutlet TripsCollectionView *tripsCollectionView;
 
 @end
 
@@ -28,11 +30,43 @@ static NSString *cellIdentifier = @"TripsCollectionViewCell";
     [super viewDidLoad];
     
     self.title = @"MainViewController";
-	
-    Trip *sampleTrip = [[Trip alloc] initWithID:@"1" name:@"Sample Trip"];
-    _userTrips = [[NSMutableArray alloc] initWithObjects:sampleTrip, nil];
     
     [self setupCollectionViews];
+    
+    PBHTTPSessionManager *manager = [PBHTTPSessionManager manager];
+    [manager GET:@"trips" parameters:nil success:^(NSURLSessionDataTask *task, id responseObject)
+    {
+        if(responseObject != nil)
+        {
+            Trip *trip = nil;
+            NSMutableArray *trips = [NSMutableArray array];
+            NSError *error = nil;
+            
+            for(id tripDictionary in responseObject)
+            {
+                trip = [[Trip alloc] initWithDictionary:tripDictionary error:&error];
+                
+                if(!error)
+                {
+                    [trips addObject:trip];
+                }
+                else
+                {
+                    NSLog(@"JSON Trip Parse Error: %@", error);
+                }
+            }
+            
+            self.trips = trips;
+        }
+        else
+        {
+            NSLog(@"Error");
+        }
+    }
+    failure:^(NSURLSessionDataTask *task, NSError *error)
+    {
+        NSLog(@"Error: %@", error);
+    }];
 }
 
 #pragma mark - UICollectionsViewDataSource
@@ -60,16 +94,16 @@ static NSString *cellIdentifier = @"TripsCollectionViewCell";
     if([segue.identifier isEqualToString:@"pushTripViewController"])
     {
         TripViewController *tripViewController = (TripViewController *)segue.destinationViewController;
-        tripViewController.trip = self.userTrips[0];
+        tripViewController.trip = self.trips[0];
     }
 }
 
 #pragma mark - UI
 - (void)setupCollectionViews
 {
-    ((UICollectionViewFlowLayout *)self.userTripsCollectionView.collectionViewLayout).scrollDirection = UICollectionViewScrollDirectionHorizontal;
-    ((UICollectionViewFlowLayout *)self.userTripsCollectionView.collectionViewLayout).minimumLineSpacing = 10.0f;
-    [self.userTripsCollectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:cellIdentifier];
+    ((UICollectionViewFlowLayout *)self.tripsCollectionView.collectionViewLayout).scrollDirection = UICollectionViewScrollDirectionHorizontal;
+    ((UICollectionViewFlowLayout *)self.tripsCollectionView.collectionViewLayout).minimumLineSpacing = 10.0f;
+    [self.tripsCollectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:cellIdentifier];
 }
 
 - (void)didReceiveMemoryWarning

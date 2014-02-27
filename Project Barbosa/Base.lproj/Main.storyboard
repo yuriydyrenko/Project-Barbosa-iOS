@@ -73,7 +73,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="TyF-TA-bCa"/>
                     <connections>
-                        <outlet property="userTripsCollectionView" destination="coU-EB-aAd" id="Npl-PR-77d"/>
+                        <outlet property="tripsCollectionView" destination="coU-EB-aAd" id="RXN-g9-AKh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DzG-fA-x2C" userLabel="First Responder" sceneMemberID="firstResponder"/>
