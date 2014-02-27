@@ -163,5 +163,4 @@ xcuserdata
 #
 # Ignore the POD folder
 
-/Pod
-Podfile.lock
+Pods/
