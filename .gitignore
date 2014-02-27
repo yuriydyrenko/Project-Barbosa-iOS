@@ -159,6 +159,9 @@ xcuserdata
 *.moved-aside
 
 ####
-# UNKNOWN: recommended by others, but I can't discover what these files are
+# CocoaPods 
 #
-# ...none. Everything is now explained.
+# Ignore the POD folder
+
+/Pod
+Podfile.lock
