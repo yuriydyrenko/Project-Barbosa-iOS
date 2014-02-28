@@ -10,4 +10,6 @@
 
 @interface TripsCollectionViewCell : UICollectionViewCell
 
+@property (weak, nonatomic) IBOutlet UILabel *tripName;
+
 @end

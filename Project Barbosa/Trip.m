@@ -10,13 +10,13 @@
 
 @implementation Trip
 
-- (id)initWithID:(NSString *)id name:(NSString *)name
+- (id)initWithID:(NSString *)_id name:(NSString *)name
 {
     self = [super init];
     
     if(self)
     {
-        self.id = id;
+        self._id = _id;
         self.name = name;
     }
     

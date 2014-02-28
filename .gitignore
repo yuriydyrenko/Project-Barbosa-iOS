@@ -164,4 +164,11 @@ xcuserdata
 # Ignore the POD folder
 
 Pods/
+
+####
+# Other Files
+#
+# Files to be ignored that weren’t in the original list but came up during development.
+#
 *.xcworkspacedata
+*.xccheckout

@@ -7,17 +7,21 @@
 //
 
 #import "MainViewController.h"
+#import "PBHTTPSessionManager.h"
+#import "AFNetworking.h"
 #import "TripsCollectionView.h"
 #import "TripsCollectionViewCell.h"
 #import "Trip.h"
 #import "TripViewController.h"
 
 static NSString *cellIdentifier = @"TripsCollectionViewCell";
+static NSString *tripViewControllerSegue = @"pushTripViewController";
 
 @interface MainViewController ()
 
-@property (nonatomic, strong) NSMutableArray *userTrips;
-@property (nonatomic, weak) IBOutlet TripsCollectionView *userTripsCollectionView;
+@property (nonatomic, strong) NSMutableArray *trips;
+@property (nonatomic, weak) IBOutlet TripsCollectionView *tripsCollectionView;
+@property (nonatomic, strong) Trip *selectedTrip;
 
 @end
 
@@ -28,48 +32,89 @@ static NSString *cellIdentifier = @"TripsCollectionViewCell";
     [super viewDidLoad];
     
     self.title = @"MainViewController";
-	
-    Trip *sampleTrip = [[Trip alloc] initWithID:@"1" name:@"Sample Trip"];
-    _userTrips = [[NSMutableArray alloc] initWithObjects:sampleTrip, nil];
     
     [self setupCollectionViews];
+    
+    [PBHTTPSessionManager startedRequest];
+    PBHTTPSessionManager *manager = [PBHTTPSessionManager manager];
+    [manager GET:@"trips" parameters:nil success:^(NSURLSessionDataTask *task, id responseObject)
+    {
+        if(responseObject != nil)
+        {
+            Trip *trip = nil;
+            NSMutableArray *trips = [NSMutableArray array];
+            NSError *error = nil;
+            
+            for(id tripDictionary in responseObject[@"trips"])
+            {
+                trip = [[Trip alloc] initWithDictionary:tripDictionary error:&error];
+                
+                if(!error)
+                {
+                    [trips addObject:trip];
+                }
+                else
+                {
+                    NSLog(@"JSON Trip Parse Error: %@", error);
+                }
+            }
+            
+            self.trips = trips;
+            
+            [self.tripsCollectionView reloadData];
+        }
+        else
+        {
+            NSLog(@"Error");
+        }
+        
+        [PBHTTPSessionManager finishedRequest];
+    }
+    failure:^(NSURLSessionDataTask *task, NSError *error)
+    {
+        NSLog(@"Error: %@", error);
+        [PBHTTPSessionManager finishedRequest];
+    }];
 }
 
 #pragma mark - UICollectionsViewDataSource
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
-    cell.backgroundColor = [UIColor redColor];
+    TripsCollectionViewCell *cell = (TripsCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
+    Trip *trip = self.trips[indexPath.row];
+    
+    cell.tripName.text = trip.name;
+    cell.backgroundColor = [UIColor grayColor];
+    
     return cell;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 10;
+    return [self.trips count];
 }
 
 #pragma mark - UICollectionsViewDelegate
 - (void)collectionView:(UICollectionView *)collectionView didHighlightItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"selected");
+    self.selectedTrip = self.trips[indexPath.row];
 }
 
 #pragma mark - Storyboard
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if([segue.identifier isEqualToString:@"pushTripViewController"])
+    if([segue.identifier isEqualToString:tripViewControllerSegue])
     {
         TripViewController *tripViewController = (TripViewController *)segue.destinationViewController;
-        tripViewController.trip = self.userTrips[0];
+        tripViewController.trip = self.selectedTrip;
     }
 }
 
 #pragma mark - UI
 - (void)setupCollectionViews
 {
-    ((UICollectionViewFlowLayout *)self.userTripsCollectionView.collectionViewLayout).scrollDirection = UICollectionViewScrollDirectionHorizontal;
-    ((UICollectionViewFlowLayout *)self.userTripsCollectionView.collectionViewLayout).minimumLineSpacing = 10.0f;
-    [self.userTripsCollectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:cellIdentifier];
+    ((UICollectionViewFlowLayout *)self.tripsCollectionView.collectionViewLayout).scrollDirection = UICollectionViewScrollDirectionHorizontal;
+    ((UICollectionViewFlowLayout *)self.tripsCollectionView.collectionViewLayout).minimumLineSpacing = 10.0f;
 }
 
 - (void)didReceiveMemoryWarning
