@@ -15,11 +15,13 @@
 #import "TripViewController.h"
 
 static NSString *cellIdentifier = @"TripsCollectionViewCell";
+static NSString *tripViewControllerSegue = @"pushTripViewController";
 
 @interface MainViewController ()
 
 @property (nonatomic, strong) NSMutableArray *trips;
 @property (nonatomic, weak) IBOutlet TripsCollectionView *tripsCollectionView;
+@property (nonatomic, strong) Trip *selectedTrip;
 
 @end
 
@@ -58,6 +60,8 @@ static NSString *cellIdentifier = @"TripsCollectionViewCell";
             }
             
             self.trips = trips;
+            
+            [self.tripsCollectionView reloadData];
         }
         else
         {
@@ -76,29 +80,35 @@ static NSString *cellIdentifier = @"TripsCollectionViewCell";
 #pragma mark - UICollectionsViewDataSource
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
-    cell.backgroundColor = [UIColor redColor];
+    TripsCollectionViewCell *cell = (TripsCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
+    Trip *trip = self.trips[indexPath.row];
+    
+    cell.tripName.text = trip.name;
+    cell.backgroundColor = [UIColor grayColor];
+    
     return cell;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 10;
+    return [self.trips count];
 }
 
 #pragma mark - UICollectionsViewDelegate
 - (void)collectionView:(UICollectionView *)collectionView didHighlightItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"selected");
+    self.selectedTrip = self.trips[indexPath.row];
+    
+    [self performSegueWithIdentifier:tripViewControllerSegue sender:self];
 }
 
 #pragma mark - Storyboard
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if([segue.identifier isEqualToString:@"pushTripViewController"])
+    if([segue.identifier isEqualToString:tripViewControllerSegue])
     {
         TripViewController *tripViewController = (TripViewController *)segue.destinationViewController;
-        tripViewController.trip = self.trips[0];
+        tripViewController.trip = self.selectedTrip;
     }
 }
 
@@ -107,7 +117,6 @@ static NSString *cellIdentifier = @"TripsCollectionViewCell";
 {
     ((UICollectionViewFlowLayout *)self.tripsCollectionView.collectionViewLayout).scrollDirection = UICollectionViewScrollDirectionHorizontal;
     ((UICollectionViewFlowLayout *)self.tripsCollectionView.collectionViewLayout).minimumLineSpacing = 10.0f;
-    [self.tripsCollectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:cellIdentifier];
 }
 
 - (void)didReceiveMemoryWarning
