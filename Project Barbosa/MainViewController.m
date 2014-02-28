@@ -45,9 +45,9 @@ static NSString *tripViewControllerSegue = @"pushTripViewController";
             NSMutableArray *trips = [NSMutableArray array];
             NSError *error = nil;
             
-            for(id tripID in responseObject)
+            for(id tripDictionary in responseObject[@"trips"])
             {
-                trip = [[Trip alloc] initWithDictionary:responseObject[tripID] error:&error];
+                trip = [[Trip alloc] initWithDictionary:tripDictionary error:&error];
                 
                 if(!error)
                 {
