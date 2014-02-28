@@ -33,6 +33,7 @@ static NSString *cellIdentifier = @"TripsCollectionViewCell";
     
     [self setupCollectionViews];
     
+    [PBHTTPSessionManager startedRequest];
     PBHTTPSessionManager *manager = [PBHTTPSessionManager manager];
     [manager GET:@"trips" parameters:nil success:^(NSURLSessionDataTask *task, id responseObject)
     {
@@ -62,10 +63,13 @@ static NSString *cellIdentifier = @"TripsCollectionViewCell";
         {
             NSLog(@"Error");
         }
+        
+        [PBHTTPSessionManager finishedRequest];
     }
     failure:^(NSURLSessionDataTask *task, NSError *error)
     {
         NSLog(@"Error: %@", error);
+        [PBHTTPSessionManager finishedRequest];
     }];
 }
 

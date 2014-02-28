@@ -12,4 +12,7 @@
 
 + (instancetype)manager;
 
++ (void)startedRequest;
++ (void)finishedRequest;
+
 @end

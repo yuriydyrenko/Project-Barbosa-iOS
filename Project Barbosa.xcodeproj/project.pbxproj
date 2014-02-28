@@ -161,8 +161,7 @@
 				5B0B191318B539ED0023967A /* Models */,
 				5B93469918B32F8D00F6B26B /* MainView */,
 				5B0B190218B534E40023967A /* TripView */,
-				5BB9E73F18BFE33100C9782E /* PBHTTPSessionManager.h */,
-				5BB9E74018BFE33100C9782E /* PBHTTPSessionManager.m */,
+				5BB9E74718C0175C00C9782E /* PB */,
 				5B03B70418AAA3970009FF93 /* Images.xcassets */,
 				5B03B6F318AAA3970009FF93 /* Supporting Files */,
 			);
@@ -227,6 +226,15 @@
 				5B0B191018B5378E0023967A /* TripsCollectionViewCell.m */,
 			);
 			name = MainView;
+			sourceTree = "<group>";
+		};
+		5BB9E74718C0175C00C9782E /* PB */ = {
+			isa = PBXGroup;
+			children = (
+				5BB9E73F18BFE33100C9782E /* PBHTTPSessionManager.h */,
+				5BB9E74018BFE33100C9782E /* PBHTTPSessionManager.m */,
+			);
+			name = PB;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

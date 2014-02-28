@@ -10,6 +10,8 @@
 
 @implementation PBHTTPSessionManager
 
+static NSUInteger _requests;
+
 + (instancetype)manager
 {
     NSURL *baseURL;
@@ -24,6 +26,30 @@
     }
     
     return [[[self class] alloc] initWithBaseURL:baseURL];
+}
+
+#pragma mark - Class Methods
++ (void)startedRequest
+{
+    _requests++;
+    
+    if(_requests == 1)
+    {
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    }
+}
+
++ (void)finishedRequest
+{
+    if(_requests != 0)
+    {
+        _requests--;
+        
+        if(_requests == 0)
+        {
+            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        }
+    }
 }
 
 @end
