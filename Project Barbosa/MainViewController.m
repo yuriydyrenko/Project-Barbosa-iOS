@@ -43,9 +43,9 @@ static NSString *cellIdentifier = @"TripsCollectionViewCell";
             NSMutableArray *trips = [NSMutableArray array];
             NSError *error = nil;
             
-            for(id tripDictionary in responseObject)
+            for(id tripID in responseObject)
             {
-                trip = [[Trip alloc] initWithDictionary:tripDictionary error:&error];
+                trip = [[Trip alloc] initWithDictionary:responseObject[tripID] error:&error];
                 
                 if(!error)
                 {
