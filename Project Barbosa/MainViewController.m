@@ -98,8 +98,6 @@ static NSString *tripViewControllerSegue = @"pushTripViewController";
 - (void)collectionView:(UICollectionView *)collectionView didHighlightItemAtIndexPath:(NSIndexPath *)indexPath
 {
     self.selectedTrip = self.trips[indexPath.row];
-    
-    [self performSegueWithIdentifier:tripViewControllerSegue sender:self];
 }
 
 #pragma mark - Storyboard
