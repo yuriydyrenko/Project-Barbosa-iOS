@@ -8,6 +8,7 @@
 
 #import <XCTest/XCTest.h>
 #import "Trip.h"
+#import "JSONModel.h"
 
 @interface Trip_Tests : XCTestCase
 
@@ -30,7 +31,25 @@
 - (void)testIDAndName
 {
     Trip *trip = [[Trip alloc] initWithID:@"1" name:@"Test Trip"];
+    
     XCTAssertEqual(trip._id, @"1", @"Trip ID not equal");
+    XCTAssertEqual(trip.name, @"Test Trip", @"Trip name not equal.");
+    
+    XCTAssertNotEqual(trip._id, @"2", @"Trip ID error.");
+    XCTAssertNotEqual(trip.name, @"Test Trip 2", @"Trip name not equal.");
+}
+
+- (void)testJSONModelDictionaryKeyMapping
+{
+    NSError *error;
+    NSDictionary *tripDictionary = @{@"_id" : @"2", @"name" : @"Test Trip 2"};
+    Trip *trip = [[Trip alloc] initWithDictionary:tripDictionary error:&error];
+    
+    XCTAssertEqual(trip._id, @"2", @"Trip ID not equal");
+    XCTAssertEqual(trip.name, @"Test Trip 2", @"Trip name not equal.");
+    
+    XCTAssertNotEqual(trip._id, @"1", @"Trip ID error.");
+    XCTAssertNotEqual(trip.name, @"Test Trip", @"Trip name error.");
 }
 
 @end
