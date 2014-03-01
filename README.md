@@ -6,6 +6,7 @@ Project Barbosa iOS
 ```
 pod install
 ```
+2. Important: CocoaPods will create an Xcode Workspace file (.xcworkspace) use this file instead of the normal .xcodeproj project file.
 
 ####CocoaPods Requirements:
 1. Ruby https://www.ruby-lang.org/en/installation/
