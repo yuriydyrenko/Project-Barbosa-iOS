@@ -37,7 +37,7 @@ static NSString *tripViewControllerSegue = @"pushTripViewController";
     
     [PBHTTPSessionManager startedRequest];
     PBHTTPSessionManager *manager = [PBHTTPSessionManager manager];
-    [manager GET:@"trips" parameters:nil success:^(NSURLSessionDataTask *task, id responseObject)
+    [manager GET:@"http://project-barbosa.herokuapp.com/trips" parameters:nil success:^(NSURLSessionDataTask *task, id responseObject)
     {
         if(responseObject != nil)
         {
@@ -84,7 +84,7 @@ static NSString *tripViewControllerSegue = @"pushTripViewController";
     Trip *trip = self.trips[indexPath.row];
     
     cell.tripName.text = trip.name;
-    cell.backgroundColor = [UIColor grayColor];
+    [cell.tripImage setImage: [trip getMapImage]];
     
     return cell;
 }
@@ -113,8 +113,7 @@ static NSString *tripViewControllerSegue = @"pushTripViewController";
 #pragma mark - UI
 - (void)setupCollectionViews
 {
-    ((UICollectionViewFlowLayout *)self.tripsCollectionView.collectionViewLayout).scrollDirection = UICollectionViewScrollDirectionHorizontal;
-    ((UICollectionViewFlowLayout *)self.tripsCollectionView.collectionViewLayout).minimumLineSpacing = 10.0f;
+
 }
 
 - (void)didReceiveMemoryWarning

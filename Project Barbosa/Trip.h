@@ -14,5 +14,5 @@
 @property (nonatomic, copy) NSString *name;
 
 - (id)initWithID:(NSString *)_id name:(NSString *)name;
-
+- (UIImage*)getMapImage;
 @end
