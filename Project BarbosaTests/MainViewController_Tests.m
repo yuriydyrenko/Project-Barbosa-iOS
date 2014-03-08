@@ -1,18 +1,18 @@
 //
-//  Project_BarbosaTests.m
-//  Project BarbosaTests
+//  MainViewControllerTests.m
+//  Project Barbosa
 //
-//  Created by Yuriy Dyrenko on 2/11/2014.
+//  Created by Yuriy Dyrenko on 2/27/2014.
 //  Copyright (c) 2014 Project Barbosa. All rights reserved.
 //
 
 #import <XCTest/XCTest.h>
 
-@interface Project_BarbosaTests : XCTestCase
+@interface MainViewController_Tests : XCTestCase
 
 @end
 
-@implementation Project_BarbosaTests
+@implementation MainViewController_Tests
 
 - (void)setUp
 {
@@ -25,5 +25,7 @@
     // Put teardown code here. This method is called after the invocation of each test method in the class.
     [super tearDown];
 }
+
+
 
 @end
