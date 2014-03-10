@@ -10,6 +10,10 @@
 
 @interface User : NSObject
 
-+ (void)checkIfUserIsLoggedIn;
++ (void)checkIfLoggedIn;
++ (BOOL)loggedIn;
++ (NSString *)_id;
++ (void)setID:(NSString *)id;
++ (void)logout;
 
 @end

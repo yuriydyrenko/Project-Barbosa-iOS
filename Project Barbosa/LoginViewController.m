@@ -7,26 +7,73 @@
 //
 
 #import "LoginViewController.h"
+#import "PBHTTPSessionManager.h"
+#import "User.h"
 
 @interface LoginViewController ()
+
+@property (nonatomic, weak) IBOutlet UITextField *email;
+@property (nonatomic, weak) IBOutlet UITextField *password;
+@property (nonatomic, weak) IBOutlet UILabel *errorMessage;
 
 @end
 
 @implementation LoginViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+}
+
+#pragma mark - Actions
+- (IBAction)done:(id)sender
+{
+    NSString *email = self.email.text;
+    NSString *password = self.password.text;
+    
+    if([email isEqualToString:@""])
+    {
+        //Handle error.
+    }
+    
+    if([password isEqualToString:@""])
+    {
+        //Handle error.
+    }
+    
+    [PBHTTPSessionManager startedRequest];
+    PBHTTPSessionManager *manager = [PBHTTPSessionManager manager];
+    [manager POST:@"login" parameters:@{@"email": email, @"password": password} success:^(NSURLSessionDataTask *task, id responseObject)
+    {
+        NSLog(@"%@", [responseObject class]);
+        
+        if(responseObject != nil)
+        {
+            if([responseObject isKindOfClass:[NSDictionary class]])
+            {
+                NSLog(@"%@", responseObject);
+                [User setID:[responseObject objectForKey:@"userID"]];
+                [self.delegate didFinishLoggingInSuccessfully];
+            }
+            else
+            {
+                for (NSString *message in responseObject) {
+                    NSLog(@"%@", message);
+                }
+            }
+        }
+        else
+        {
+            NSLog(@"Error");
+        }
+        
+        [PBHTTPSessionManager finishedRequest];
+    }
+    failure:^(NSURLSessionDataTask *task, NSError *error)
+    {
+        NSLog(@"Error: %@", error);
+        [PBHTTPSessionManager finishedRequest];
+    }];
 }
 
 - (void)didReceiveMemoryWarning

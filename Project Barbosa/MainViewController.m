@@ -13,17 +13,22 @@
 #import "TripsCollectionViewCell.h"
 #import "Trip.h"
 #import "TripViewController.h"
+#import "User.h"
 
 static NSString *cellIdentifier = @"TripsCollectionViewCell";
 static NSString *tripViewControllerSegue = @"pushTripViewController";
+static NSString *loginViewControllerSegue = @"popoverLoginViewController";
 
 @interface MainViewController ()
 
-@property (nonatomic, strong) NSMutableArray *trips;
+@property (nonatomic, strong) NSMutableArray *userTrips;
+@property (nonatomic, strong) NSMutableArray *publicTrips;
 @property (nonatomic, weak) IBOutlet TripsCollectionView *userTripsCollectionView;
 @property (nonatomic, weak) IBOutlet TripsCollectionView *publicTripsCollectionView;
 @property (nonatomic, strong) Trip *selectedUserTrip;
 @property (nonatomic, strong) Trip *selectedPublicTrip;
+@property (nonatomic, strong) IBOutlet UIBarButtonItem *loginButton;
+@property (nonatomic, strong) UIPopoverController *loginPopoverController;
 
 @end
 
@@ -33,25 +38,30 @@ static NSString *tripViewControllerSegue = @"pushTripViewController";
 {
     [super viewDidLoad];
     
-    self.title = @"All Trip";
+    if([User loggedIn])
+    {
+        [self didFinishLoggingInSuccessfully];
+    }
     
     [PBHTTPSessionManager startedRequest];
     PBHTTPSessionManager *manager = [PBHTTPSessionManager manager];
-    [manager GET:@"http://project-barbosa.herokuapp.com/trips" parameters:nil success:^(NSURLSessionDataTask *task, id responseObject)
+    [manager GET:@"trips" parameters:nil success:^(NSURLSessionDataTask *task, id responseObject)
     {
         if(responseObject != nil)
         {
-            Trip *trip = nil;
-            NSMutableArray *trips = [NSMutableArray array];
+            Trip *publicTrip = nil;
+            NSMutableArray *publicTrips = [NSMutableArray array];
             NSError *error = nil;
+            
+            NSLog(@"%@", responseObject);
             
             for(id tripDictionary in responseObject[@"trips"])
             {
-                trip = [[Trip alloc] initWithDictionary:tripDictionary error:&error];
+                publicTrip = [[Trip alloc] initWithDictionary:tripDictionary error:&error];
                 
                 if(!error)
                 {
-                    [trips addObject:trip];
+                    [publicTrips addObject:publicTrip];
                 }
                 else
                 {
@@ -59,9 +69,8 @@ static NSString *tripViewControllerSegue = @"pushTripViewController";
                 }
             }
             
-            self.trips = trips;
-            
-            //[self.tripsCollectionView reloadData];
+            self.publicTrips = publicTrips;
+            [self.publicTripsCollectionView reloadData];
         }
         else
         {
@@ -81,17 +90,18 @@ static NSString *tripViewControllerSegue = @"pushTripViewController";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     TripsCollectionViewCell *cell = (TripsCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
-    Trip *trip = self.trips[indexPath.row];
+    Trip *publicTrip = self.publicTrips[indexPath.row];
+    NSLog(@"%@", publicTrip);
     
-    cell.tripName.text = trip.name;
-    [cell.tripImage setImage: [trip getMapImage]];
+    cell.tripName.text = publicTrip.name;
+    [cell.tripImage setImage: [publicTrip getMapImage]];
     
     return cell;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return [self.trips count];
+    return [self.publicTrips count];
 }
 
 #pragma mark - UICollectionsViewDelegate
@@ -108,12 +118,57 @@ static NSString *tripViewControllerSegue = @"pushTripViewController";
         TripViewController *tripViewController = (TripViewController *)segue.destinationViewController;
         //tripViewController.trip = self.selectedTrip;
     }
+    else if([segue.identifier isEqualToString:loginViewControllerSegue])
+    {
+        self.loginPopoverController = [(UIStoryboardPopoverSegue *)segue popoverController];
+        UINavigationController *popoverController = (UINavigationController *)segue.destinationViewController;
+        LoginViewController *loginViewController = popoverController.viewControllers[0];
+        loginViewController.delegate = self;
+    }
+}
+
+-(BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
+{
+    BOOL shouldPerform = YES;
+    
+    if([identifier isEqualToString:loginViewControllerSegue] && self.loginPopoverController.isPopoverVisible)
+    {
+        shouldPerform = NO;
+    }
+    
+    return shouldPerform;
+}
+
+#pragma mark - LoginViewControllerDelegate
+- (void)didFinishLoggingInSuccessfully
+{
+    NSLog(@"user logged in.");
+    [self.loginPopoverController dismissPopoverAnimated:YES];
+    
+    UIBarButtonItem *syncButton = [[UIBarButtonItem alloc] initWithTitle:@"Sync" style:UIBarButtonItemStylePlain target:self action:@selector(sync:)];
+    self.navigationItem.leftBarButtonItem = syncButton;
+    
+    UIBarButtonItem *logoutButton = [[UIBarButtonItem alloc] initWithTitle:@"Logout" style:UIBarButtonItemStylePlain target:self action:@selector(logout:)];
+    self.navigationItem.rightBarButtonItem = logoutButton;
 }
 
 #pragma mark - Actions
-- (IBAction)login:(id)sender
+- (void)login:(UIBarButtonItem *)button
 {
-    
+    [self.loginPopoverController presentPopoverFromBarButtonItem:button permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+}
+
+- (void)sync:(UIBarButtonItem *)button
+{
+    NSLog(@"sync");
+}
+
+- (void)logout:(UIBarButtonItem *)button
+{
+    [User logout];
+    UIBarButtonItem *loginButton = [[UIBarButtonItem alloc] initWithTitle:@"Login" style:UIBarButtonItemStylePlain target:self action:@selector(login:)];
+    self.navigationItem.leftBarButtonItem = loginButton;
+    self.navigationItem.rightBarButtonItem = nil;
 }
 
 - (void)didReceiveMemoryWarning

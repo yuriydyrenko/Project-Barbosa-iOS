@@ -10,6 +10,41 @@
 
 @implementation User
 
+static NSString *_id = nil;
 
++ (void)checkIfLoggedIn
+{
+    _id = [[NSUserDefaults standardUserDefaults] objectForKey:@"userID"];
+}
+
++ (BOOL)loggedIn
+{
+    BOOL loggedIn = NO;
+    
+    if(_id != nil)
+    {
+        loggedIn = YES;
+    }
+    
+    return loggedIn;
+}
+
++ (NSString *)_id
+{
+    return _id;
+}
+
++ (void)setID:(NSString *)id
+{
+    [[NSUserDefaults standardUserDefaults] setObject:id forKey:@"userID"];
+    _id = id;
+}
+
++ (void)logout
+{
+    _id = nil;
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"userID"];
+    [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:[[NSBundle mainBundle] bundleIdentifier]];
+}
 
 @end
