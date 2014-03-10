@@ -1,5 +1,6 @@
 Project Barbosa iOS
 ===================
+[![Build Status](https://api.travis-ci.org/yuriydyrenko/Project-Barbosa-iOS.png?branch=master)](https://travis-ci.org/yuriydyrenko/Project-Barbosa-iOS)
 
 ####CocoaPods Notes:
 1. You can use CocoaPods to get all of the required dependencies (you must be in the project folder).
