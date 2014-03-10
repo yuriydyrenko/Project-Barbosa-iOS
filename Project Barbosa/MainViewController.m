@@ -20,8 +20,10 @@ static NSString *tripViewControllerSegue = @"pushTripViewController";
 @interface MainViewController ()
 
 @property (nonatomic, strong) NSMutableArray *trips;
-@property (nonatomic, weak) IBOutlet TripsCollectionView *tripsCollectionView;
-@property (nonatomic, strong) Trip *selectedTrip;
+@property (nonatomic, weak) IBOutlet TripsCollectionView *userTripsCollectionView;
+@property (nonatomic, weak) IBOutlet TripsCollectionView *publicTripsCollectionView;
+@property (nonatomic, strong) Trip *selectedUserTrip;
+@property (nonatomic, strong) Trip *selectedPublicTrip;
 
 @end
 
@@ -31,9 +33,7 @@ static NSString *tripViewControllerSegue = @"pushTripViewController";
 {
     [super viewDidLoad];
     
-    self.title = @"MainViewController";
-    
-    [self setupCollectionViews];
+    self.title = @"All Trip";
     
     [PBHTTPSessionManager startedRequest];
     PBHTTPSessionManager *manager = [PBHTTPSessionManager manager];
@@ -61,7 +61,7 @@ static NSString *tripViewControllerSegue = @"pushTripViewController";
             
             self.trips = trips;
             
-            [self.tripsCollectionView reloadData];
+            //[self.tripsCollectionView reloadData];
         }
         else
         {
@@ -97,7 +97,7 @@ static NSString *tripViewControllerSegue = @"pushTripViewController";
 #pragma mark - UICollectionsViewDelegate
 - (void)collectionView:(UICollectionView *)collectionView didHighlightItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    self.selectedTrip = self.trips[indexPath.row];
+    //self.selectedTrip = self.trips[indexPath.row];
 }
 
 #pragma mark - Storyboard
@@ -106,14 +106,14 @@ static NSString *tripViewControllerSegue = @"pushTripViewController";
     if([segue.identifier isEqualToString:tripViewControllerSegue])
     {
         TripViewController *tripViewController = (TripViewController *)segue.destinationViewController;
-        tripViewController.trip = self.selectedTrip;
+        //tripViewController.trip = self.selectedTrip;
     }
 }
 
-#pragma mark - UI
-- (void)setupCollectionViews
+#pragma mark - Actions
+- (IBAction)login:(id)sender
 {
-
+    
 }
 
 - (void)didReceiveMemoryWarning
