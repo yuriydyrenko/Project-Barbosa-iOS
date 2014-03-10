@@ -128,13 +128,15 @@
                     <navigationItem key="navigationItem" title="All Trips" id="TyF-TA-bCa">
                         <barButtonItem key="leftBarButtonItem" title="Login" id="Te1-no-4Ya">
                             <connections>
-                                <segue destination="Hee-fY-rbw" kind="popover" popoverAnchorBarButtonItem="Te1-no-4Ya" id="ejC-GW-Tfv">
+                                <action selector="showLoginPopover:" destination="Mv6-fW-GzY" id="RhU-T9-MsM"/>
+                                <segue destination="uBQ-dZ-3oa" kind="popover" identifier="popoverLoginViewController" popoverAnchorBarButtonItem="Te1-no-4Ya" id="eTy-vg-lWP">
                                     <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
                                 </segue>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="loginButton" destination="Te1-no-4Ya" id="Ovg-Nn-nFC"/>
                         <outlet property="publicTripsCollectionView" destination="Ifk-K7-q8D" id="aNT-H7-EiY"/>
                         <outlet property="userTripsCollectionView" destination="coU-EB-aAd" id="dUM-8M-NrQ"/>
                     </connections>
@@ -143,10 +145,25 @@
             </objects>
             <point key="canvasLocation" x="377" y="-54"/>
         </scene>
-        <!--View Controller-->
+        <!--Navigation Controller-->
+        <scene sceneID="Y4V-nG-dVN">
+            <objects>
+                <navigationController definesPresentationContext="YES" id="uBQ-dZ-3oa" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="IDJ-om-Cy5">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Hee-fY-rbw" kind="relationship" relationship="rootViewController" id="xo7-DY-qeQ"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mBi-gU-xDx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="316" y="-1448"/>
+        </scene>
+        <!--Login View Controller - Login-->
         <scene sceneID="41q-NC-2p9">
             <objects>
-                <viewController id="Hee-fY-rbw" sceneMemberID="viewController">
+                <viewController id="Hee-fY-rbw" customClass="LoginViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="onj-D7-12D"/>
                         <viewControllerLayoutGuide type="bottom" id="G9J-DT-Ji1"/>
@@ -161,15 +178,50 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="mail@yuriy.me" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="v9X-vv-lFy">
+                                <rect key="frame" x="20" y="89" width="280" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.92716117529999997" green="0.92716117529999997" blue="0.92716117529999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="test" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GZ4-3B-mJ4">
+                                <rect key="frame" x="20" y="154" width="280" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.92716117529999997" green="0.92716117529999997" blue="0.92716117529999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7oU-8T-6P7">
+                                <rect key="frame" x="21" y="215" width="280" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.73333334920000004" green="0.73333334920000004" blue="0.73333334920000004" alpha="1" colorSpace="deviceRGB"/>
+                                <state key="normal" title="Login"/>
+                                <connections>
+                                    <action selector="done:" destination="Hee-fY-rbw" eventType="touchUpInside" id="gH0-Bp-2YA"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gSi-cX-bQc">
+                                <rect key="frame" x="21" y="275" width="279" height="110"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Login" id="56C-o3-uDE"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <outlet property="email" destination="v9X-vv-lFy" id="ILj-5e-lBS"/>
+                        <outlet property="password" destination="GZ4-3B-mJ4" id="iR1-wP-Jfq"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Les-E6-DXO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1551" y="-970"/>
+            <point key="canvasLocation" x="1675" y="-1059"/>
         </scene>
         <!--Trip View Controller-->
         <scene sceneID="HC6-dz-8ss">
@@ -184,7 +236,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Lw3-Cv-mct">
-                                <rect key="frame" x="0.0" y="0.0" width="716" height="486"/>
+                                <rect key="frame" x="0.0" y="0.0" width="716" height="488"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </mapView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="VFb-6y-1cg">
