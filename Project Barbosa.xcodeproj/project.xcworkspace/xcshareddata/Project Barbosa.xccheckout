@@ -5,7 +5,7 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>9248CC06-B310-4DFF-92B3-365A2E47B461</string>
+	<string>A8D5267B-2226-4092-A7FF-025FDF754D6E</string>
 	<key>IDESourceControlProjectName</key>
 	<string>Project Barbosa</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
@@ -14,11 +14,11 @@
 		<string>https://github.com/yuriydyrenko/Project-Barbosa-iOS.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>Project Barbosa.xcworkspace</string>
+	<string>Project Barbosa.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>A6E8E31B-8ADA-4168-B75C-EF5289C6B267</key>
-		<string>..</string>
+		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/yuriydyrenko/Project-Barbosa-iOS.git</string>
