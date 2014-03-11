@@ -28,7 +28,6 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       buildConfiguration = "Debug">
       <Testables>
-<<<<<<< HEAD
          <TestableReference
             skipped = "NO">
             <BuildableReference
@@ -39,8 +38,6 @@
                ReferencedContainer = "container:Project Barbosa.xcodeproj">
             </BuildableReference>
          </TestableReference>
-=======
->>>>>>> Fixed schemes
       </Testables>
       <MacroExpansion>
          <BuildableReference
