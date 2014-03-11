@@ -7,12 +7,15 @@
 //
 
 #import "AppDelegate.h"
+#import "User.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    [User checkIfLoggedIn];
+    
     return YES;
 }
 							
@@ -36,6 +39,7 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    [User checkIfLoggedIn];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

@@ -31,6 +31,10 @@
 		5B0B194A18B53AF70023967A /* Trip.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B0B194818B53AF70023967A /* Trip.m */; };
 		5B0B194C18B53BCF0023967A /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B0B194B18B53BCF0023967A /* MapKit.framework */; };
 		5B0B197618B58CC20023967A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B0B197518B58CC20023967A /* SystemConfiguration.framework */; };
+		5B1C5DEC18CE37E4009E0D22 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B1C5DEB18CE37E4009E0D22 /* User.m */; };
+		5B1C5DED18CE37E4009E0D22 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B1C5DEB18CE37E4009E0D22 /* User.m */; };
+		5B1C5DF118CE39FD009E0D22 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B1C5DF018CE39FD009E0D22 /* LoginViewController.m */; };
+		5B1C5DF218CE39FD009E0D22 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B1C5DF018CE39FD009E0D22 /* LoginViewController.m */; };
 		5BB9E74118BFE33100C9782E /* PBHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB9E74018BFE33100C9782E /* PBHTTPSessionManager.m */; };
 		5BB9E74218BFE33100C9782E /* PBHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB9E74018BFE33100C9782E /* PBHTTPSessionManager.m */; };
 		5BB9E74E18C050AE00C9782E /* MainViewController_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB9E74D18C050AE00C9782E /* MainViewController_Tests.m */; };
@@ -82,6 +86,10 @@
 		5B0B194B18B53BCF0023967A /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		5B0B197318B58C870023967A /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		5B0B197518B58CC20023967A /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		5B1C5DEA18CE37E4009E0D22 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		5B1C5DEB18CE37E4009E0D22 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		5B1C5DEF18CE39FD009E0D22 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		5B1C5DF018CE39FD009E0D22 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		5BB9E73F18BFE33100C9782E /* PBHTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBHTTPSessionManager.h; sourceTree = "<group>"; };
 		5BB9E74018BFE33100C9782E /* PBHTTPSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBHTTPSessionManager.m; sourceTree = "<group>"; };
 		5BB9E74D18C050AE00C9782E /* MainViewController_Tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController_Tests.m; sourceTree = "<group>"; };
@@ -167,6 +175,7 @@
 				5B0B191318B539ED0023967A /* Models */,
 				5B93469918B32F8D00F6B26B /* MainView */,
 				5B0B190218B534E40023967A /* TripView */,
+				5B1C5DEE18CE39AB009E0D22 /* LoginView */,
 				5BB9E74718C0175C00C9782E /* PB */,
 				5B03B70418AAA3970009FF93 /* Images.xcassets */,
 				5B03B6F318AAA3970009FF93 /* Supporting Files */,
@@ -219,8 +228,19 @@
 			children = (
 				5B0B194718B53AF70023967A /* Trip.h */,
 				5B0B194818B53AF70023967A /* Trip.m */,
+				5B1C5DEA18CE37E4009E0D22 /* User.h */,
+				5B1C5DEB18CE37E4009E0D22 /* User.m */,
 			);
 			name = Models;
+			sourceTree = "<group>";
+		};
+		5B1C5DEE18CE39AB009E0D22 /* LoginView */ = {
+			isa = PBXGroup;
+			children = (
+				5B1C5DEF18CE39FD009E0D22 /* LoginViewController.h */,
+				5B1C5DF018CE39FD009E0D22 /* LoginViewController.m */,
+			);
+			name = LoginView;
 			sourceTree = "<group>";
 		};
 		5B93469918B32F8D00F6B26B /* MainView */ = {
@@ -291,7 +311,7 @@
 		5B03B6E118AAA3970009FF93 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Project Barbosa";
 				TargetAttributes = {
 					5B03B70918AAA3970009FF93 = {
@@ -380,7 +400,9 @@
 			files = (
 				5B0B190D18B537800023967A /* TripsCollectionView.m in Sources */,
 				5B03B70318AAA3970009FF93 /* MainViewController.m in Sources */,
+				5B1C5DEC18CE37E4009E0D22 /* User.m in Sources */,
 				5B0B194918B53AF70023967A /* Trip.m in Sources */,
+				5B1C5DF118CE39FD009E0D22 /* LoginViewController.m in Sources */,
 				5B03B6FD18AAA3970009FF93 /* AppDelegate.m in Sources */,
 				5B0B190918B535120023967A /* TripViewController.m in Sources */,
 				5B03B6F918AAA3970009FF93 /* main.m in Sources */,
@@ -394,7 +416,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				5BB9E76518C11D2C00C9782E /* Trip_Tests.m in Sources */,
+				5B1C5DF218CE39FD009E0D22 /* LoginViewController.m in Sources */,
 				5B0B194A18B53AF70023967A /* Trip.m in Sources */,
+				5B1C5DED18CE37E4009E0D22 /* User.m in Sources */,
 				5BB9E74218BFE33100C9782E /* PBHTTPSessionManager.m in Sources */,
 				5B03B71818AAA3970009FF93 /* Project_BarbosaTests.m in Sources */,
 				5B0B191218B5378E0023967A /* TripsCollectionViewCell.m in Sources */,
@@ -446,7 +470,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -486,7 +509,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -550,7 +572,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8259536925E2485C86AB55F5 /* Pods.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Project Barbosa.app/Project Barbosa";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -574,7 +595,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8259536925E2485C86AB55F5 /* Pods.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Project Barbosa.app/Project Barbosa";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
