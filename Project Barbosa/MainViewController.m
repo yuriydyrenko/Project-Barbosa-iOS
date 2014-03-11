@@ -25,6 +25,7 @@ static NSString *loginViewControllerSegue = @"popoverLoginViewController";
 @property (nonatomic, strong) NSMutableArray *publicTrips;
 @property (nonatomic, weak) IBOutlet TripsCollectionView *userTripsCollectionView;
 @property (nonatomic, weak) IBOutlet TripsCollectionView *publicTripsCollectionView;
+@property (nonatomic, strong) Trip *selectedTrip;
 @property (nonatomic, strong) Trip *selectedUserTrip;
 @property (nonatomic, strong) Trip *selectedPublicTrip;
 @property (nonatomic, strong) IBOutlet UIBarButtonItem *loginButton;
@@ -52,8 +53,6 @@ static NSString *loginViewControllerSegue = @"popoverLoginViewController";
             Trip *publicTrip = nil;
             NSMutableArray *publicTrips = [NSMutableArray array];
             NSError *error = nil;
-            
-            NSLog(@"%@", responseObject);
             
             for(id tripDictionary in responseObject[@"trips"])
             {
@@ -91,7 +90,6 @@ static NSString *loginViewControllerSegue = @"popoverLoginViewController";
 {
     TripsCollectionViewCell *cell = (TripsCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
     Trip *publicTrip = self.publicTrips[indexPath.row];
-    NSLog(@"%@", publicTrip);
     
     cell.tripName.text = publicTrip.name;
     [cell.tripImage setImage: [publicTrip getMapImage]];
@@ -107,7 +105,11 @@ static NSString *loginViewControllerSegue = @"popoverLoginViewController";
 #pragma mark - UICollectionsViewDelegate
 - (void)collectionView:(UICollectionView *)collectionView didHighlightItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    //self.selectedTrip = self.trips[indexPath.row];
+    NSLog(@"selected: %@", @(indexPath.row));
+    if(collectionView == self.userTripsCollectionView)
+        self.selectedTrip = self.userTrips[indexPath.row];
+    else
+        self.selectedTrip = self.publicTrips[indexPath.row];
 }
 
 #pragma mark - Storyboard
@@ -116,15 +118,16 @@ static NSString *loginViewControllerSegue = @"popoverLoginViewController";
     if([segue.identifier isEqualToString:tripViewControllerSegue])
     {
         TripViewController *tripViewController = (TripViewController *)segue.destinationViewController;
-        //tripViewController.trip = self.selectedTrip;
+        tripViewController.trip = self.selectedTrip;
     }
     else if([segue.identifier isEqualToString:loginViewControllerSegue])
     {
         self.loginPopoverController = [(UIStoryboardPopoverSegue *)segue popoverController];
-        UINavigationController *popoverController = (UINavigationController *)segue.destinationViewController;
-        LoginViewController *loginViewController = popoverController.viewControllers[0];
+        LoginViewController *loginViewController = ((UINavigationController *)segue.destinationViewController).viewControllers[0];
         loginViewController.delegate = self;
     }
+    
+    NSLog(@"prepare");
 }
 
 -(BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
@@ -135,6 +138,8 @@ static NSString *loginViewControllerSegue = @"popoverLoginViewController";
     {
         shouldPerform = NO;
     }
+    
+    NSLog(@"should preform: %@", @(shouldPerform));
     
     return shouldPerform;
 }

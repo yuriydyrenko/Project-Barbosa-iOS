@@ -23,9 +23,6 @@
     [super viewDidLoad];
 	
     self.title = self.trip.name;
-    
-    NSLog(@"TripViewController viewDidLoad with trip: %@", self.trip);
-    
     [self addRightNavigationBarButtons];
 }
 
