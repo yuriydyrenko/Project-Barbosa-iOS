@@ -1,0 +1,11 @@
+language: objective-c
+
+before_install:
+    - brew update --system
+    - brew upgrade xctool
+    - gem update --system
+    - gem install cocoapods
+
+script:
+  - xctool -workspace Project\ Barbosa.xcworkspace -scheme Project\ Barbosa -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
+  - xctool test -workspace Project\ Barbosa.xcworkspace -scheme Project\ Barbosa -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
