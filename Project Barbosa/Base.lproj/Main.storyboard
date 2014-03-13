@@ -23,7 +23,7 @@
         <!--Main View Controller - All Trips-->
         <scene sceneID="ciQ-Et-s4w">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="Mv6-fW-GzY" customClass="MainViewController" sceneMemberID="viewController">
+                <viewController id="Mv6-fW-GzY" customClass="MainViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="HXf-ro-Ega"/>
                         <viewControllerLayoutGuide type="bottom" id="ORK-Gn-0Nl"/>
@@ -44,7 +44,7 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="TripsCollectionViewCell" id="gZ9-nt-V7Q" customClass="TripsCollectionViewCell">
-                                        <rect key="frame" x="0.0" y="29" width="308" height="294"/>
+                                        <rect key="frame" x="0.0" y="93" width="308" height="294"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="308" height="294"/>
@@ -245,6 +245,21 @@
                                 <rect key="frame" x="716" y="0.0" width="308" height="768"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <inset key="scrollIndicatorInsets" minX="0.0" minY="64" maxX="0.0" maxY="0.0"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" restorationIdentifier="ItineraryItemCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="ItineraryItemCell" id="mX7-7Y-Fqg" customClass="ItineraryItemTableViewCell">
+                                        <rect key="frame" x="0.0" y="22" width="308" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mX7-7Y-Fqg" id="aPy-rj-uRW">
+                                            <rect key="frame" x="0.0" y="0.0" width="308" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="k5N-lF-tR3" id="fyT-7A-UGk"/>
+                                    <outlet property="delegate" destination="k5N-lF-tR3" id="NAj-jF-kWm"/>
+                                </connections>
                             </tableView>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BHX-fX-aUE">
                                 <rect key="frame" x="0.0" y="485" width="716" height="283"/>
@@ -259,6 +274,9 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    <connections>
+                        <outlet property="itineraryItemsTableView" destination="VFb-6y-1cg" id="Hos-dt-Yjr"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1QC-hP-8Bu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

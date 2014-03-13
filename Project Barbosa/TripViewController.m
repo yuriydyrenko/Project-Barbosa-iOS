@@ -8,10 +8,15 @@
 
 #import "TripViewController.h"
 #import "Trip.h"
+#import "ItineraryItem.h"
+#import "ItineraryItemTableViewCell.h"
+
+static NSString *itineraryItemCellIdentifier = @"ItineraryItemCell";
 
 @interface TripViewController ()
 
 @property (nonatomic, strong) MKMapView *mapView;
+@property (nonatomic, weak) IBOutlet UITableView *itineraryItemsTableView;
 
 @end
 
@@ -23,18 +28,29 @@
     [super viewDidLoad];
 	
     self.title = self.trip.name;
+    self.itineraryItemsTableView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0);
     [self addRightNavigationBarButtons];
 }
 
 #pragma mark - UITableViewDataSource
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return nil;
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:itineraryItemCellIdentifier];
+    ItineraryItem *itineraryItem = self.trip.itinerary[indexPath.row];
+    
+    if(cell == nil)
+    {
+        cell = [[ItineraryItemTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:itineraryItemCellIdentifier];
+    }
+    
+    cell.textLabel.text = itineraryItem.title;
+    
+    return cell;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 0;
+    return [self.trip.itinerary count];
 }
 
 #pragma mark - Actions
