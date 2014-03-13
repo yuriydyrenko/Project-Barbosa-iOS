@@ -12,8 +12,10 @@
 #import "ItineraryItemTableViewCell.h"
 #import "TripViewMapView.h"
 #import "ItineraryItemDetailView.h"
+#import "TripViewMapAnnotation.h"
 
 static NSString *itineraryItemCellIdentifier = @"ItineraryItemCell";
+static NSString *mapViewAnnotationIdentifier = @"TripViewMapAnnotation";
 
 @interface TripViewController ()
 
@@ -34,6 +36,7 @@ static NSString *itineraryItemCellIdentifier = @"ItineraryItemCell";
     self.itineraryItemsTableView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0);
     [self addRightNavigationBarButtons];
     [self drawTripPath];
+    [self.itineraryItemDetailView displayNoItineraryItemSelected];
 }
 
 #pragma mark - UITableViewDataSource
@@ -100,19 +103,60 @@ static NSString *itineraryItemCellIdentifier = @"ItineraryItemCell";
 
 - (void)drawTripPath
 {
+    if(self.trip.itinerary.count == 0)
+        return;
+    
+    ItineraryItem *item;
     NSDictionary *location;
+    TripViewMapAnnotation *annotation;
     CLLocationCoordinate2D coordinate;
     CLLocationCoordinate2D *coordinates = calloc(self.trip.itinerary.count, sizeof(CLLocationCoordinate2D));
     
     for(NSInteger ii = 0; ii < self.trip.itinerary.count; ii++)
     {
-        location = (NSDictionary *)[(ItineraryItem *)self.trip.itinerary[ii] location];
+        item = (ItineraryItem *)self.trip.itinerary[ii];
+        location = (NSDictionary *)item.location;
         coordinate = CLLocationCoordinate2DMake([[location objectForKey:@"latitude"] floatValue], [[location objectForKey:@"longitude"] floatValue]);
         coordinates[ii] = coordinate;
+        
+        annotation = [[TripViewMapAnnotation alloc] initWithTitle:item.title coordinate:coordinate];
+        [self.mapView addAnnotation:annotation];
     }
+    
+    [self centerMapForCoordinate:coordinates[0]];
     
     MKPolyline *tripPath = [MKPolyline polylineWithCoordinates:coordinates count:self.trip.itinerary.count];
     [self.mapView addOverlay:tripPath];
+}
+
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(TripViewMapAnnotation *)annotation
+{
+    MKPinAnnotationView *pin = (MKPinAnnotationView *)[self.mapView dequeueReusableAnnotationViewWithIdentifier:mapViewAnnotationIdentifier];
+    
+    if(pin == nil)
+    {
+        pin =[[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:mapViewAnnotationIdentifier];
+    }
+    
+    pin.animatesDrop = NO;
+    pin.canShowCallout = YES;
+    pin.pinColor = MKPinAnnotationColorRed;
+    
+    return pin;
+}
+
+- (void)centerMapForCoordinate:(CLLocationCoordinate2D)coordinate
+{
+    MKCoordinateSpan span;
+    MKCoordinateRegion region;
+    
+    span.latitudeDelta = 0.05f;
+    span.longitudeDelta = 0.05f;
+    
+    region.center = coordinate;
+    region.span = span;
+    
+    [self.mapView setRegion:region];
 }
 
 #pragma mark - UI

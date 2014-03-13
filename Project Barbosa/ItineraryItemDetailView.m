@@ -17,18 +17,6 @@
 
 @implementation ItineraryItemDetailView
 
-- (id)initWithCoder:(NSCoder *)aDecoder
-{
-    self = [super initWithCoder:aDecoder];
-    
-    if(self)
-    {
-        [self displayNoItineraryItemSelected];
-    }
-    
-    return self;
-}
-
 - (void)displayNoItineraryItemSelected
 {
     NSLog(@"displayNoItineraryItem");

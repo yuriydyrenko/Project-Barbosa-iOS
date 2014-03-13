@@ -12,6 +12,7 @@
 
 @interface ItineraryItemDetailView : UIView
 
+- (void)displayNoItineraryItemSelected;
 - (void)displayDetailsForItineraryItem:(ItineraryItem *)item;
 
 @end
