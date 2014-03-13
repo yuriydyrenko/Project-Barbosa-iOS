@@ -10,4 +10,7 @@
 
 @interface ItineraryItemTableViewCell : UITableViewCell
 
+@property (nonatomic, weak) IBOutlet UILabel *title;
+@property (nonatomic, weak) IBOutlet UILabel *details;
+
 @end

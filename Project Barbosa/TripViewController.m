@@ -11,6 +11,7 @@
 #import "ItineraryItem.h"
 #import "ItineraryItemTableViewCell.h"
 #import "TripViewMapView.h"
+#import "ItineraryItemDetailView.h"
 
 static NSString *itineraryItemCellIdentifier = @"ItineraryItemCell";
 
@@ -18,6 +19,7 @@ static NSString *itineraryItemCellIdentifier = @"ItineraryItemCell";
 
 @property (nonatomic, weak) IBOutlet MKMapView *mapView;
 @property (nonatomic, weak) IBOutlet UITableView *itineraryItemsTableView;
+@property (nonatomic, weak) IBOutlet ItineraryItemDetailView *itineraryItemDetailView;
 
 @end
 
@@ -37,22 +39,41 @@ static NSString *itineraryItemCellIdentifier = @"ItineraryItemCell";
 #pragma mark - UITableViewDataSource
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:itineraryItemCellIdentifier];
-    ItineraryItem *itineraryItem = self.trip.itinerary[indexPath.row];
+    ItineraryItemTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:itineraryItemCellIdentifier];
+    ItineraryItem *itineraryItem = self.trip.itinerary[indexPath.section];
     
     if(cell == nil)
     {
         cell = [[ItineraryItemTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:itineraryItemCellIdentifier];
     }
     
-    cell.textLabel.text = itineraryItem.title;
+    cell.title.text = itineraryItem.title;
+    cell.details.text = itineraryItem.details;
     
     return cell;
 }
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return self.trip.itinerary.count;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.trip.itinerary count];
+    return 1;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    NSDictionary *itemLocation = (NSDictionary *)[(ItineraryItem *)self.trip.itinerary[section] location];
+    return itemLocation[@"name"];
+}
+
+#pragma mark - UITableView Delegate
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    ItineraryItem *item = self.trip.itinerary[indexPath.section];
+    [self.itineraryItemDetailView displayDetailsForItineraryItem:item];
 }
 
 #pragma mark - Actions
