@@ -45,6 +45,8 @@
 		5BD5649718D10E78008209A7 /* ItineraryItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD5649518D10E78008209A7 /* ItineraryItem.m */; };
 		5BD5649A18D110DE008209A7 /* ItineraryItemTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD5649918D110DE008209A7 /* ItineraryItemTableViewCell.m */; };
 		5BD5649B18D110DE008209A7 /* ItineraryItemTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD5649918D110DE008209A7 /* ItineraryItemTableViewCell.m */; };
+		5BD564A218D12D18008209A7 /* TripViewMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD564A118D12D18008209A7 /* TripViewMapView.m */; };
+		5BD564A318D12D18008209A7 /* TripViewMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BD564A118D12D18008209A7 /* TripViewMapView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -104,6 +106,8 @@
 		5BD5649518D10E78008209A7 /* ItineraryItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItineraryItem.m; sourceTree = "<group>"; };
 		5BD5649818D110DE008209A7 /* ItineraryItemTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItineraryItemTableViewCell.h; sourceTree = "<group>"; };
 		5BD5649918D110DE008209A7 /* ItineraryItemTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItineraryItemTableViewCell.m; sourceTree = "<group>"; };
+		5BD564A018D12D18008209A7 /* TripViewMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripViewMapView.h; sourceTree = "<group>"; };
+		5BD564A118D12D18008209A7 /* TripViewMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripViewMapView.m; sourceTree = "<group>"; };
 		8259536925E2485C86AB55F5 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		F10D0EAADA3E4E58A9696F2D /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -229,6 +233,8 @@
 				5B0B190818B535120023967A /* TripViewController.m */,
 				5BD5649818D110DE008209A7 /* ItineraryItemTableViewCell.h */,
 				5BD5649918D110DE008209A7 /* ItineraryItemTableViewCell.m */,
+				5BD564A018D12D18008209A7 /* TripViewMapView.h */,
+				5BD564A118D12D18008209A7 /* TripViewMapView.m */,
 			);
 			name = TripView;
 			sourceTree = "<group>";
@@ -414,6 +420,7 @@
 				5B03B70318AAA3970009FF93 /* MainViewController.m in Sources */,
 				5B1C5DEC18CE37E4009E0D22 /* User.m in Sources */,
 				5B0B194918B53AF70023967A /* Trip.m in Sources */,
+				5BD564A218D12D18008209A7 /* TripViewMapView.m in Sources */,
 				5BD5649A18D110DE008209A7 /* ItineraryItemTableViewCell.m in Sources */,
 				5B1C5DF118CE39FD009E0D22 /* LoginViewController.m in Sources */,
 				5B03B6FD18AAA3970009FF93 /* AppDelegate.m in Sources */,
@@ -433,6 +440,7 @@
 				5B1C5DF218CE39FD009E0D22 /* LoginViewController.m in Sources */,
 				5B0B194A18B53AF70023967A /* Trip.m in Sources */,
 				5B1C5DED18CE37E4009E0D22 /* User.m in Sources */,
+				5BD564A318D12D18008209A7 /* TripViewMapView.m in Sources */,
 				5BD5649B18D110DE008209A7 /* ItineraryItemTableViewCell.m in Sources */,
 				5BB9E74218BFE33100C9782E /* PBHTTPSessionManager.m in Sources */,
 				5B03B71818AAA3970009FF93 /* Project_BarbosaTests.m in Sources */,
