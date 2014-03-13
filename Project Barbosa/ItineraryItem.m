@@ -10,6 +10,19 @@
 
 @implementation ItineraryItem
 
+- (id)initWithID:(NSString *)_id title:(NSString *)title
+{
+    self = [super init];
+    
+    if(self)
+    {
+        self._id = _id;
+        self.title = title;
+    }
+    
+    return self;
+}
+
 + (JSONKeyMapper*)keyMapper
 {
     return [[JSONKeyMapper alloc] initWithDictionary:@{

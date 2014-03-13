@@ -26,6 +26,7 @@
 @property (nonatomic, copy) NSString<Optional> *details;
 @property (nonatomic, strong) ItineraryItemLocation<Optional> *location;
 
+- (id)initWithID:(NSString *)_id title:(NSString *)title;
 + (JSONKeyMapper*)keyMapper;
 
 @end
