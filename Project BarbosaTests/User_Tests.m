@@ -29,13 +29,13 @@
 
 - (void)testCheckIfLoggedIn
 {
-    XCTAssertEqual([User loggedIn], false, @"User should not be logged in.");
+    XCTAssertEqual([User loggedIn], NO, @"User should not be logged in.");
     
     [User setID:@"123456789"];
-    XCTAssertEqual([User loggedIn], true, @"User should be logged in.");
+    XCTAssertEqual([User loggedIn], YES, @"User should be logged in.");
     
     [User logout];
-    XCTAssertEqual([User loggedIn], false, @"User should not be logged in.");
+    XCTAssertEqual([User loggedIn], NO, @"User should not be logged in.");
 }
 
 @end
