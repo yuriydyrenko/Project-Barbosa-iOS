@@ -105,7 +105,6 @@ static NSString *loginViewControllerSegue = @"popoverLoginViewController";
 #pragma mark - UICollectionsViewDelegate
 - (void)collectionView:(UICollectionView *)collectionView didHighlightItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"selected: %@", @(indexPath.row));
     if(collectionView == self.userTripsCollectionView)
         self.selectedTrip = self.userTrips[indexPath.row];
     else
@@ -126,8 +125,6 @@ static NSString *loginViewControllerSegue = @"popoverLoginViewController";
         LoginViewController *loginViewController = ((UINavigationController *)segue.destinationViewController).viewControllers[0];
         loginViewController.delegate = self;
     }
-    
-    NSLog(@"prepare");
 }
 
 -(BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
@@ -138,8 +135,6 @@ static NSString *loginViewControllerSegue = @"popoverLoginViewController";
     {
         shouldPerform = NO;
     }
-    
-    NSLog(@"should preform: %@", @(shouldPerform));
     
     return shouldPerform;
 }

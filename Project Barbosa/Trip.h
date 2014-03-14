@@ -7,12 +7,15 @@
 //
 
 #import "JSONModel.h"
+#import "ItineraryItem.h"
 
 @interface Trip : JSONModel
 
-@property (nonatomic, copy) NSString *_id;
-@property (nonatomic, copy) NSString *name;
+@property (nonatomic, strong) NSString *_id;
+@property (nonatomic, strong) NSString *name;
+@property (nonatomic, strong) NSArray<ItineraryItem, Optional> *itinerary;
 
 - (id)initWithID:(NSString *)_id name:(NSString *)name;
 - (UIImage*)getMapImage;
+
 @end

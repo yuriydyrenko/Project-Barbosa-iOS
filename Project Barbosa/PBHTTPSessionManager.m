@@ -19,8 +19,8 @@ static NSUInteger _requests;
     
     if(DEBUG)
     {
-        //baseURL = [NSURL URLWithString:@"http://localhost:3000/"];
-        baseURL = [NSURL URLWithString:@"http://project-barbosa.herokuapp.com/"];
+        baseURL = [NSURL URLWithString:@"http://localhost:3000/"];
+        //baseURL = [NSURL URLWithString:@"http://project-barbosa.herokuapp.com/"];
     }
     else
     {
