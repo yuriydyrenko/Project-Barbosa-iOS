@@ -25,12 +25,7 @@
 
 - (UIImage*)getMapImage
 {
-    
-    
     NSString* path = @"http://maps.googleapis.com/maps/api/staticmap?center=UofM+Winnipeg&zoom=13&size=200x168&maptype=roadmap&markers=color:red%7Clabel:C%7CUofM+Winnipeg&sensor=false";
-    
-
-    
     NSURL *imageURL = [NSURL URLWithString:path];
     NSData *imageData = [NSData dataWithContentsOfURL:imageURL];
     UIImage *image = [UIImage imageWithData:imageData];

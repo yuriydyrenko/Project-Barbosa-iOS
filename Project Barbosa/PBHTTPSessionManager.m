@@ -14,24 +14,9 @@ static NSUInteger _requests;
 
 + (instancetype)manager
 {
-    PBHTTPSessionManager *manager;
-    NSURL *baseURL;
-    
-    if(DEBUG)
-    {
-        baseURL = [NSURL URLWithString:@"http://localhost:3000/"];
-        //baseURL = [NSURL URLWithString:@"http://project-barbosa.herokuapp.com/"];
-    }
-    else
-    {
-        baseURL = [NSURL URLWithString:@"http://project-barbosa.herokuapp.com/"];
-    }
-    
-    //AFJSONRequestSerializer *requestSerializer = [AFJSONRequestSerializer serializer];
-    //AFHTTPResponseSerializer *responseSerializer = [AFHTTPResponseSerializer serializer];
-    manager = [[[self class] alloc] initWithBaseURL:baseURL];
-    //manager.requestSerializer = requestSerializer;
-    //manager.responseSerializer = responseSerializer;
+    //NSURL *baseURL = [NSURL URLWithString:@"http://localhost:3000/"];
+    NSURL *baseURL = [NSURL URLWithString:@"http://project-barbosa.herokuapp.com/"];
+    PBHTTPSessionManager *manager = [[[self class] alloc] initWithBaseURL:baseURL];
     
     return manager;
 }
