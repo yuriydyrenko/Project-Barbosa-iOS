@@ -20,7 +20,7 @@
 		5B03B70D18AAA3970009FF93 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B03B6EC18AAA3970009FF93 /* Foundation.framework */; };
 		5B03B70E18AAA3970009FF93 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B03B6F018AAA3970009FF93 /* UIKit.framework */; };
 		5B03B71618AAA3970009FF93 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5B03B71418AAA3970009FF93 /* InfoPlist.strings */; };
-		5B03B71818AAA3970009FF93 /* Project_BarbosaTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B03B71718AAA3970009FF93 /* Project_BarbosaTests.m */; };
+		5B03B71818AAA3970009FF93 /* ProjectBarbosa_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B03B71718AAA3970009FF93 /* ProjectBarbosa_Tests.m */; };
 		5B0B190918B535120023967A /* TripViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B0B190818B535120023967A /* TripViewController.m */; };
 		5B0B190A18B535120023967A /* TripViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B0B190818B535120023967A /* TripViewController.m */; };
 		5B0B190D18B537800023967A /* TripsCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B0B190C18B537800023967A /* TripsCollectionView.m */; };
@@ -35,6 +35,8 @@
 		5B1C5DED18CE37E4009E0D22 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B1C5DEB18CE37E4009E0D22 /* User.m */; };
 		5B1C5DF118CE39FD009E0D22 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B1C5DF018CE39FD009E0D22 /* LoginViewController.m */; };
 		5B1C5DF218CE39FD009E0D22 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B1C5DF018CE39FD009E0D22 /* LoginViewController.m */; };
+		5B5C7BEF18D440340046CF4F /* PBTripManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B5C7BEE18D440340046CF4F /* PBTripManager.m */; };
+		5B5C7BF218D4C8270046CF4F /* PBTripManager_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B5C7BF118D4C8270046CF4F /* PBTripManager_Tests.m */; };
 		5BB9E74118BFE33100C9782E /* PBHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB9E74018BFE33100C9782E /* PBHTTPSessionManager.m */; };
 		5BB9E74218BFE33100C9782E /* PBHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB9E74018BFE33100C9782E /* PBHTTPSessionManager.m */; };
 		5BB9E74E18C050AE00C9782E /* MainViewController_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BB9E74D18C050AE00C9782E /* MainViewController_Tests.m */; };
@@ -53,6 +55,7 @@
 		5BF81CA618D2214A00CB7E30 /* ItineraryItem_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BF81CA518D2214A00CB7E30 /* ItineraryItem_Tests.m */; };
 		5BF81CA918D2453800CB7E30 /* TripViewMapAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BF81CA818D2453800CB7E30 /* TripViewMapAnnotation.m */; };
 		5BF81CAA18D2453800CB7E30 /* TripViewMapAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BF81CA818D2453800CB7E30 /* TripViewMapAnnotation.m */; };
+		FFF62322440341DA8E8008F7 /* libPods-ProjectBarbosaTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 50D8BE63F95846528AD3BEE5 /* libPods-ProjectBarbosaTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,25 +69,27 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		5B03B6E918AAA3970009FF93 /* Project Barbosa.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Project Barbosa.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		50D8BE63F95846528AD3BEE5 /* libPods-ProjectBarbosaTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ProjectBarbosaTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		584865CC1C274E4D9D1EE8BD /* Pods-ProjectBarbosaTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProjectBarbosaTests.xcconfig"; path = "Pods/Pods-ProjectBarbosaTests.xcconfig"; sourceTree = "<group>"; };
+		5B03B6E918AAA3970009FF93 /* ProjectBarbosa.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectBarbosa.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B03B6EC18AAA3970009FF93 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		5B03B6EE18AAA3970009FF93 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		5B03B6F018AAA3970009FF93 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		5B03B6F418AAA3970009FF93 /* Project Barbosa-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Project Barbosa-Info.plist"; sourceTree = "<group>"; };
+		5B03B6F418AAA3970009FF93 /* ProjectBarbosa-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ProjectBarbosa-Info.plist"; sourceTree = "<group>"; };
 		5B03B6F618AAA3970009FF93 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5B03B6F818AAA3970009FF93 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		5B03B6FA18AAA3970009FF93 /* Project Barbosa-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Project Barbosa-Prefix.pch"; sourceTree = "<group>"; };
+		5B03B6FA18AAA3970009FF93 /* ProjectBarbosa-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ProjectBarbosa-Prefix.pch"; sourceTree = "<group>"; };
 		5B03B6FB18AAA3970009FF93 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		5B03B6FC18AAA3970009FF93 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		5B03B6FF18AAA3970009FF93 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5B03B70118AAA3970009FF93 /* MainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		5B03B70218AAA3970009FF93 /* MainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		5B03B70418AAA3970009FF93 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		5B03B70A18AAA3970009FF93 /* Project BarbosaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Project BarbosaTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5B03B70A18AAA3970009FF93 /* ProjectBarbosaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProjectBarbosaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B03B70B18AAA3970009FF93 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		5B03B71318AAA3970009FF93 /* Project BarbosaTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Project BarbosaTests-Info.plist"; sourceTree = "<group>"; };
+		5B03B71318AAA3970009FF93 /* ProjectBarbosaTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ProjectBarbosaTests-Info.plist"; sourceTree = "<group>"; };
 		5B03B71518AAA3970009FF93 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		5B03B71718AAA3970009FF93 /* Project_BarbosaTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Project_BarbosaTests.m; sourceTree = "<group>"; };
+		5B03B71718AAA3970009FF93 /* ProjectBarbosa_Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProjectBarbosa_Tests.m; sourceTree = "<group>"; };
 		5B03B72118AAB11D0009FF93 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		5B03B72218AAB1C90009FF93 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		5B0B190718B535120023967A /* TripViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripViewController.h; sourceTree = "<group>"; };
@@ -102,6 +107,10 @@
 		5B1C5DEB18CE37E4009E0D22 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		5B1C5DEF18CE39FD009E0D22 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		5B1C5DF018CE39FD009E0D22 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		5B5C7BED18D440340046CF4F /* PBTripManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBTripManager.h; sourceTree = "<group>"; };
+		5B5C7BEE18D440340046CF4F /* PBTripManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBTripManager.m; sourceTree = "<group>"; };
+		5B5C7BF018D440440046CF4F /* PB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PB.h; sourceTree = "<group>"; };
+		5B5C7BF118D4C8270046CF4F /* PBTripManager_Tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBTripManager_Tests.m; sourceTree = "<group>"; };
 		5BB9E73F18BFE33100C9782E /* PBHTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBHTTPSessionManager.h; sourceTree = "<group>"; };
 		5BB9E74018BFE33100C9782E /* PBHTTPSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBHTTPSessionManager.m; sourceTree = "<group>"; };
 		5BB9E74D18C050AE00C9782E /* MainViewController_Tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController_Tests.m; sourceTree = "<group>"; };
@@ -145,6 +154,7 @@
 				5B03B70C18AAA3970009FF93 /* XCTest.framework in Frameworks */,
 				5B03B70E18AAA3970009FF93 /* UIKit.framework in Frameworks */,
 				5B03B70D18AAA3970009FF93 /* Foundation.framework in Frameworks */,
+				FFF62322440341DA8E8008F7 /* libPods-ProjectBarbosaTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -163,14 +173,15 @@
 				5B03B6EB18AAA3970009FF93 /* Frameworks */,
 				5B03B6EA18AAA3970009FF93 /* Products */,
 				8259536925E2485C86AB55F5 /* Pods.xcconfig */,
+				584865CC1C274E4D9D1EE8BD /* Pods-ProjectBarbosaTests.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
 		5B03B6EA18AAA3970009FF93 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				5B03B6E918AAA3970009FF93 /* Project Barbosa.app */,
-				5B03B70A18AAA3970009FF93 /* Project BarbosaTests.xctest */,
+				5B03B6E918AAA3970009FF93 /* ProjectBarbosa.app */,
+				5B03B70A18AAA3970009FF93 /* ProjectBarbosaTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -186,6 +197,7 @@
 				5B03B6F018AAA3970009FF93 /* UIKit.framework */,
 				5B03B70B18AAA3970009FF93 /* XCTest.framework */,
 				F10D0EAADA3E4E58A9696F2D /* libPods.a */,
+				50D8BE63F95846528AD3BEE5 /* libPods-ProjectBarbosaTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -210,10 +222,10 @@
 		5B03B6F318AAA3970009FF93 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				5B03B6F418AAA3970009FF93 /* Project Barbosa-Info.plist */,
+				5B03B6F418AAA3970009FF93 /* ProjectBarbosa-Info.plist */,
 				5B03B6F518AAA3970009FF93 /* InfoPlist.strings */,
 				5B03B6F818AAA3970009FF93 /* main.m */,
-				5B03B6FA18AAA3970009FF93 /* Project Barbosa-Prefix.pch */,
+				5B03B6FA18AAA3970009FF93 /* ProjectBarbosa-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -221,11 +233,12 @@
 		5B03B71118AAA3970009FF93 /* Project BarbosaTests */ = {
 			isa = PBXGroup;
 			children = (
-				5B03B71718AAA3970009FF93 /* Project_BarbosaTests.m */,
+				5B03B71718AAA3970009FF93 /* ProjectBarbosa_Tests.m */,
 				5BB9E74D18C050AE00C9782E /* MainViewController_Tests.m */,
 				5BB9E76418C11D2C00C9782E /* Trip_Tests.m */,
 				5BF81CA318D2201400CB7E30 /* User_Tests.m */,
 				5BF81CA518D2214A00CB7E30 /* ItineraryItem_Tests.m */,
+				5B5C7BF118D4C8270046CF4F /* PBTripManager_Tests.m */,
 				5B03B71218AAA3970009FF93 /* Supporting Files */,
 			);
 			path = "Project BarbosaTests";
@@ -234,7 +247,7 @@
 		5B03B71218AAA3970009FF93 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				5B03B71318AAA3970009FF93 /* Project BarbosaTests-Info.plist */,
+				5B03B71318AAA3970009FF93 /* ProjectBarbosaTests-Info.plist */,
 				5B03B71418AAA3970009FF93 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
@@ -295,8 +308,11 @@
 		5BB9E74718C0175C00C9782E /* PB */ = {
 			isa = PBXGroup;
 			children = (
+				5B5C7BF018D440440046CF4F /* PB.h */,
 				5BB9E73F18BFE33100C9782E /* PBHTTPSessionManager.h */,
 				5BB9E74018BFE33100C9782E /* PBHTTPSessionManager.m */,
+				5B5C7BED18D440340046CF4F /* PBTripManager.h */,
+				5B5C7BEE18D440340046CF4F /* PBTripManager.m */,
 			);
 			name = PB;
 			sourceTree = "<group>";
@@ -304,9 +320,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		5B03B6E818AAA3970009FF93 /* Project Barbosa */ = {
+		5B03B6E818AAA3970009FF93 /* ProjectBarbosa */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 5B03B71B18AAA3970009FF93 /* Build configuration list for PBXNativeTarget "Project Barbosa" */;
+			buildConfigurationList = 5B03B71B18AAA3970009FF93 /* Build configuration list for PBXNativeTarget "ProjectBarbosa" */;
 			buildPhases = (
 				DB221A359A074571A519965D /* Check Pods Manifest.lock */,
 				5B03B6E518AAA3970009FF93 /* Sources */,
@@ -318,27 +334,29 @@
 			);
 			dependencies = (
 			);
-			name = "Project Barbosa";
+			name = ProjectBarbosa;
 			productName = "Project Barbosa";
-			productReference = 5B03B6E918AAA3970009FF93 /* Project Barbosa.app */;
+			productReference = 5B03B6E918AAA3970009FF93 /* ProjectBarbosa.app */;
 			productType = "com.apple.product-type.application";
 		};
-		5B03B70918AAA3970009FF93 /* Project BarbosaTests */ = {
+		5B03B70918AAA3970009FF93 /* ProjectBarbosaTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 5B03B71E18AAA3970009FF93 /* Build configuration list for PBXNativeTarget "Project BarbosaTests" */;
+			buildConfigurationList = 5B03B71E18AAA3970009FF93 /* Build configuration list for PBXNativeTarget "ProjectBarbosaTests" */;
 			buildPhases = (
+				455553972CB94869AAD60568 /* Check Pods Manifest.lock */,
 				5B03B70618AAA3970009FF93 /* Sources */,
 				5B03B70718AAA3970009FF93 /* Frameworks */,
 				5B03B70818AAA3970009FF93 /* Resources */,
+				6922EC7D487048D2B3F478BE /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				5B03B71018AAA3970009FF93 /* PBXTargetDependency */,
 			);
-			name = "Project BarbosaTests";
+			name = ProjectBarbosaTests;
 			productName = "Project BarbosaTests";
-			productReference = 5B03B70A18AAA3970009FF93 /* Project BarbosaTests.xctest */;
+			productReference = 5B03B70A18AAA3970009FF93 /* ProjectBarbosaTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -355,7 +373,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 5B03B6E418AAA3970009FF93 /* Build configuration list for PBXProject "Project Barbosa" */;
+			buildConfigurationList = 5B03B6E418AAA3970009FF93 /* Build configuration list for PBXProject "ProjectBarbosa" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -368,8 +386,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				5B03B6E818AAA3970009FF93 /* Project Barbosa */,
-				5B03B70918AAA3970009FF93 /* Project BarbosaTests */,
+				5B03B6E818AAA3970009FF93 /* ProjectBarbosa */,
+				5B03B70918AAA3970009FF93 /* ProjectBarbosaTests */,
 			);
 		};
 /* End PBXProject section */
@@ -397,6 +415,36 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		455553972CB94869AAD60568 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		6922EC7D487048D2B3F478BE /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-ProjectBarbosaTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		C658AF977CB94424AACEED12 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -440,6 +488,7 @@
 				5B1C5DEC18CE37E4009E0D22 /* User.m in Sources */,
 				5B0B194918B53AF70023967A /* Trip.m in Sources */,
 				5BD564A218D12D18008209A7 /* TripViewMapView.m in Sources */,
+				5B5C7BEF18D440340046CF4F /* PBTripManager.m in Sources */,
 				5BD5649A18D110DE008209A7 /* ItineraryItemTableViewCell.m in Sources */,
 				5B1C5DF118CE39FD009E0D22 /* LoginViewController.m in Sources */,
 				5B03B6FD18AAA3970009FF93 /* AppDelegate.m in Sources */,
@@ -456,6 +505,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B5C7BF218D4C8270046CF4F /* PBTripManager_Tests.m in Sources */,
 				5BB9E76518C11D2C00C9782E /* Trip_Tests.m in Sources */,
 				5B1C5DF218CE39FD009E0D22 /* LoginViewController.m in Sources */,
 				5BF81CA218D20B7B00CB7E30 /* ItineraryItemDetailView.m in Sources */,
@@ -467,7 +517,7 @@
 				5BD5649B18D110DE008209A7 /* ItineraryItemTableViewCell.m in Sources */,
 				5BF81CA618D2214A00CB7E30 /* ItineraryItem_Tests.m in Sources */,
 				5BB9E74218BFE33100C9782E /* PBHTTPSessionManager.m in Sources */,
-				5B03B71818AAA3970009FF93 /* Project_BarbosaTests.m in Sources */,
+				5B03B71818AAA3970009FF93 /* ProjectBarbosa_Tests.m in Sources */,
 				5B0B191218B5378E0023967A /* TripsCollectionViewCell.m in Sources */,
 				5BB9E74E18C050AE00C9782E /* MainViewController_Tests.m in Sources */,
 				5B0B190A18B535120023967A /* TripViewController.m in Sources */,
@@ -481,7 +531,7 @@
 /* Begin PBXTargetDependency section */
 		5B03B71018AAA3970009FF93 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 5B03B6E818AAA3970009FF93 /* Project Barbosa */;
+			target = 5B03B6E818AAA3970009FF93 /* ProjectBarbosa */;
 			targetProxy = 5B03B70F18AAA3970009FF93 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -593,10 +643,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Project Barbosa/Project Barbosa-Prefix.pch";
-				INFOPLIST_FILE = "Project Barbosa/Project Barbosa-Info.plist";
+				GCC_PREFIX_HEADER = "Project Barbosa/ProjectBarbosa-Prefix.pch";
+				INFOPLIST_FILE = "Project Barbosa/ProjectBarbosa-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = ProjectBarbosa;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -608,32 +658,32 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Project Barbosa/Project Barbosa-Prefix.pch";
-				INFOPLIST_FILE = "Project Barbosa/Project Barbosa-Info.plist";
+				GCC_PREFIX_HEADER = "Project Barbosa/ProjectBarbosa-Prefix.pch";
+				INFOPLIST_FILE = "Project Barbosa/ProjectBarbosa-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = ProjectBarbosa;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
 		};
 		5B03B71F18AAA3970009FF93 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8259536925E2485C86AB55F5 /* Pods.xcconfig */;
+			baseConfigurationReference = 584865CC1C274E4D9D1EE8BD /* Pods-ProjectBarbosaTests.xcconfig */;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Project Barbosa.app/Project Barbosa";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/ProjectBarbosa.app/ProjectBarbosa";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Project Barbosa/Project Barbosa-Prefix.pch";
+				GCC_PREFIX_HEADER = "Project Barbosa/ProjectBarbosa-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "Project BarbosaTests/Project BarbosaTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_FILE = "Project BarbosaTests/ProjectBarbosaTests-Info.plist";
+				PRODUCT_NAME = ProjectBarbosaTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -641,18 +691,18 @@
 		};
 		5B03B72018AAA3970009FF93 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8259536925E2485C86AB55F5 /* Pods.xcconfig */;
+			baseConfigurationReference = 584865CC1C274E4D9D1EE8BD /* Pods-ProjectBarbosaTests.xcconfig */;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Project Barbosa.app/Project Barbosa";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/ProjectBarbosa.app/ProjectBarbosa";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Project Barbosa/Project Barbosa-Prefix.pch";
-				INFOPLIST_FILE = "Project BarbosaTests/Project BarbosaTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				GCC_PREFIX_HEADER = "Project Barbosa/ProjectBarbosa-Prefix.pch";
+				INFOPLIST_FILE = "Project BarbosaTests/ProjectBarbosaTests-Info.plist";
+				PRODUCT_NAME = ProjectBarbosaTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -661,7 +711,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		5B03B6E418AAA3970009FF93 /* Build configuration list for PBXProject "Project Barbosa" */ = {
+		5B03B6E418AAA3970009FF93 /* Build configuration list for PBXProject "ProjectBarbosa" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5B03B71918AAA3970009FF93 /* Debug */,
@@ -670,7 +720,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		5B03B71B18AAA3970009FF93 /* Build configuration list for PBXNativeTarget "Project Barbosa" */ = {
+		5B03B71B18AAA3970009FF93 /* Build configuration list for PBXNativeTarget "ProjectBarbosa" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5B03B71C18AAA3970009FF93 /* Debug */,
@@ -679,7 +729,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		5B03B71E18AAA3970009FF93 /* Build configuration list for PBXNativeTarget "Project BarbosaTests" */ = {
+		5B03B71E18AAA3970009FF93 /* Build configuration list for PBXNativeTarget "ProjectBarbosaTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5B03B71F18AAA3970009FF93 /* Debug */,

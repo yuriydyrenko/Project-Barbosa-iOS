@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "5B03B6E818AAA3970009FF93"
-               BuildableName = "Project Barbosa.app"
-               BlueprintName = "Project Barbosa"
-               ReferencedContainer = "container:Project Barbosa.xcodeproj">
+               BuildableName = "ProjectBarbosa.app"
+               BlueprintName = "ProjectBarbosa"
+               ReferencedContainer = "container:ProjectBarbosa.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "5B03B70918AAA3970009FF93"
-               BuildableName = "Project BarbosaTests.xctest"
-               BlueprintName = "Project BarbosaTests"
-               ReferencedContainer = "container:Project Barbosa.xcodeproj">
+               BuildableName = "ProjectBarbosaTests.xctest"
+               BlueprintName = "ProjectBarbosaTests"
+               ReferencedContainer = "container:ProjectBarbosa.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -43,9 +43,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "5B03B6E818AAA3970009FF93"
-            BuildableName = "Project Barbosa.app"
-            BlueprintName = "Project Barbosa"
-            ReferencedContainer = "container:Project Barbosa.xcodeproj">
+            BuildableName = "ProjectBarbosa.app"
+            BlueprintName = "ProjectBarbosa"
+            ReferencedContainer = "container:ProjectBarbosa.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -62,9 +62,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "5B03B6E818AAA3970009FF93"
-            BuildableName = "Project Barbosa.app"
-            BlueprintName = "Project Barbosa"
-            ReferencedContainer = "container:Project Barbosa.xcodeproj">
+            BuildableName = "ProjectBarbosa.app"
+            BlueprintName = "ProjectBarbosa"
+            ReferencedContainer = "container:ProjectBarbosa.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -80,9 +80,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "5B03B6E818AAA3970009FF93"
-            BuildableName = "Project Barbosa.app"
-            BlueprintName = "Project Barbosa"
-            ReferencedContainer = "container:Project Barbosa.xcodeproj">
+            BuildableName = "ProjectBarbosa.app"
+            BlueprintName = "ProjectBarbosa"
+            ReferencedContainer = "container:ProjectBarbosa.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

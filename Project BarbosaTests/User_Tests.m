@@ -6,36 +6,19 @@
 //  Copyright (c) 2014 Project Barbosa. All rights reserved.
 //
 
-#import <XCTest/XCTest.h>
+#import "Kiwi.h"
 #import "User.h"
 
-@interface User_Tests : XCTestCase
+SPEC_BEGIN(UserSpec)
 
-@end
+describe(@"User", ^{
+    it(@"should be return if logged in correctly", ^{
+        [[theValue([User loggedIn]) should] equal:theValue(NO)];
+        [User setID:@"123456789"];
+        [[theValue([User loggedIn]) should] equal:theValue(YES)];
+        [User logout];
+        [[theValue([User loggedIn]) should] equal:theValue(NO)];
+    });
+});
 
-@implementation User_Tests
-
-- (void)setUp
-{
-    [super setUp];
-    // Put setup code here. This method is called before the invocation of each test method in the class.
-}
-
-- (void)tearDown
-{
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
-    [super tearDown];
-}
-
-- (void)testCheckIfLoggedIn
-{
-    XCTAssertEqual([User loggedIn], NO, @"User should not be logged in.");
-    
-    [User setID:@"123456789"];
-    XCTAssertEqual([User loggedIn], YES, @"User should be logged in.");
-    
-    [User logout];
-    XCTAssertEqual([User loggedIn], NO, @"User should not be logged in.");
-}
-
-@end
+SPEC_END

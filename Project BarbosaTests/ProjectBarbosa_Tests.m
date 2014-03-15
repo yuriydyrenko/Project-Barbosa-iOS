@@ -8,11 +8,11 @@
 
 #import <XCTest/XCTest.h>
 
-@interface Project_BarbosaTests : XCTestCase
+@interface ProjectBarbosa_Tests : XCTestCase
 
 @end
 
-@implementation Project_BarbosaTests
+@implementation ProjectBarbosa_Tests
 
 - (void)setUp
 {
