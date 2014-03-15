@@ -11,8 +11,20 @@
 
 SPEC_BEGIN(PBTripManagerSpec)
 
-describe(@"ItineraryItem", ^{
+describe(@"PBTripManager", ^{
+    registerMatchers(@"PB");
     
+    it(@"should get an array of all trips from the server within two seconds", ^{
+        __block NSArray *allTrips = nil;
+        
+        [PBTripManager getAllTripsWithSuccess:^(NSArray *trips, NSInteger count, NSArray *errors) {
+            [[theValue(trips.count) should] equal:theValue(count)];
+            [[errors should] beEmpty];
+            allTrips = trips;
+        } failure:nil];
+        
+        [[expectFutureValue(allTrips) shouldEventuallyBeforeTimingOutAfter(2.0)] beNonNil];
+    });
 });
 
 SPEC_END
