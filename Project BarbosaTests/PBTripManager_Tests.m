@@ -14,7 +14,7 @@ SPEC_BEGIN(PBTripManagerSpec)
 describe(@"PBTripManager", ^{
     registerMatchers(@"PB");
     
-    it(@"should get an array of all trips from the server within two seconds", ^{
+    it(@"should get an array of all trips from the server within four seconds", ^{
         __block NSArray *allTrips = nil;
         
         [PBTripManager getAllTripsWithSuccess:^(NSArray *trips, NSInteger count, NSArray *errors) {
@@ -23,7 +23,7 @@ describe(@"PBTripManager", ^{
             allTrips = trips;
         } failure:nil];
         
-        [[expectFutureValue(allTrips) shouldEventuallyBeforeTimingOutAfter(2.0)] beNonNil];
+        [[expectFutureValue(allTrips) shouldEventuallyBeforeTimingOutAfter(4.0)] beNonNil];
     });
 });
 
