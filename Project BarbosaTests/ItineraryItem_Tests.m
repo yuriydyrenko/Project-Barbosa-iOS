@@ -6,33 +6,18 @@
 //  Copyright (c) 2014 Project Barbosa. All rights reserved.
 //
 
-#import <XCTest/XCTest.h>
+#import "Kiwi.h"
 #import "ItineraryItem.h"
 
-@interface ItineraryItem_Tests : XCTestCase
+SPEC_BEGIN(ItineraryItemSpec)
 
-@end
+describe(@"ItineraryItem", ^{
+    it(@"should save properties correctly", ^{
+        ItineraryItem *item = [[ItineraryItem alloc] initWithID:@"1" title:@"Test Itinerary Item"];
+        
+        [[item._id should] equal:@"1"];
+        [[item.title should] equal:@"Test Itinerary Item"];
+    });
+});
 
-@implementation ItineraryItem_Tests
-
-- (void)setUp
-{
-    [super setUp];
-    // Put setup code here. This method is called before the invocation of each test method in the class.
-}
-
-- (void)tearDown
-{
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
-    [super tearDown];
-}
-
-- (void)testIDAndTitle
-{
-    ItineraryItem *item = [[ItineraryItem alloc] initWithID:@"1" title:@"Test Itinerary Item"];
-    
-    XCTAssertEqual(item._id, @"1", @"Itinerary Trip Item ID not equal");
-    XCTAssertEqual(item.title, @"Test Itinerary Item", @"Itinerary Item Trip name not equal.");
-}
-
-@end
+SPEC_END

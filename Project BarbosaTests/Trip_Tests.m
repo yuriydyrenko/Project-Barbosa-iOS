@@ -31,10 +31,10 @@ describe(@"Trip", ^{
         [[trip.itinerary should] beEmpty];
     });
     
-    it(@"should error while mapping a trip with no id", ^{
+    it(@"should error while mapping a trip with valid data", ^{
         Trip *trip = nil;
         NSDictionary *tripDictionary = nil;
-        NSString *tripJSONString = @"{\"__v\": 0, \"archived\": false, \"date\": \"2014-03-14T17:07:03.719Z\", \"location\": \"London\", \"user\": \"Jules Verne\", \"itinerary\": [], \"name\": \"Around the World in Eighty Days\"}";
+        NSString *tripJSONString = @"{\"__v\": 0, \"archived\": false, \"date\": \"2014-03-14T17:07:03.719Z\", \"location\": \"London\", \"user\": \"Jules Verne\", \"itinerary\": []}";
         NSData *tripData = [tripJSONString dataUsingEncoding:NSUTF8StringEncoding];
         NSError *error = nil;
         

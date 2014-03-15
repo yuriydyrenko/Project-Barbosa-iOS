@@ -7,7 +7,7 @@
 //
 
 #import "MainViewController.h"
-#import "PBHTTPSessionManager.h"
+#import "PB.h"
 #import "AFNetworking.h"
 #import "TripsCollectionView.h"
 #import "TripsCollectionViewCell.h"
@@ -21,8 +21,8 @@ static NSString *loginViewControllerSegue = @"popoverLoginViewController";
 
 @interface MainViewController ()
 
-@property (nonatomic, strong) NSMutableArray *userTrips;
-@property (nonatomic, strong) NSMutableArray *publicTrips;
+@property (nonatomic, strong) NSArray *userTrips;
+@property (nonatomic, strong) NSArray *publicTrips;
 @property (nonatomic, weak) IBOutlet TripsCollectionView *userTripsCollectionView;
 @property (nonatomic, weak) IBOutlet TripsCollectionView *publicTripsCollectionView;
 @property (nonatomic, strong) Trip *selectedTrip;
@@ -44,44 +44,14 @@ static NSString *loginViewControllerSegue = @"popoverLoginViewController";
         [self didFinishLoggingInSuccessfully];
     }
     
-    [PBHTTPSessionManager startedRequest];
-    PBHTTPSessionManager *manager = [PBHTTPSessionManager manager];
-    [manager GET:@"trips" parameters:nil success:^(NSURLSessionDataTask *task, id responseObject)
+    [PBTripManager getAllTripsWithSuccess:^(NSArray *trips, NSInteger count, NSArray *errors)
     {
-        if(responseObject != nil)
-        {
-            Trip *publicTrip = nil;
-            NSMutableArray *publicTrips = [NSMutableArray array];
-            NSError *error = nil;
-            
-            for(id tripDictionary in responseObject[@"trips"])
-            {
-                publicTrip = [[Trip alloc] initWithDictionary:tripDictionary error:&error];
-                
-                if(!error)
-                {
-                    [publicTrips addObject:publicTrip];
-                }
-                else
-                {
-                    NSLog(@"JSON Trip Parse Error: %@", error);
-                }
-            }
-            
-            self.publicTrips = publicTrips;
-            [self.publicTripsCollectionView reloadData];
-        }
-        else
-        {
-            NSLog(@"Error");
-        }
-        
-        [PBHTTPSessionManager finishedRequest];
+        self.publicTrips = trips;
+        [self.publicTripsCollectionView reloadData];
     }
-    failure:^(NSURLSessionDataTask *task, NSError *error)
+    failure:^(NSError *error)
     {
         NSLog(@"Error: %@", error);
-        [PBHTTPSessionManager finishedRequest];
     }];
 }
 

@@ -14,8 +14,8 @@ static NSUInteger _requests;
 
 + (instancetype)manager
 {
-    //NSURL *baseURL = [NSURL URLWithString:@"http://localhost:3000/"];
-    NSURL *baseURL = [NSURL URLWithString:@"http://project-barbosa.herokuapp.com/"];
+    NSURL *baseURL = [NSURL URLWithString:@"http://localhost:3000/"];
+    //NSURL *baseURL = [NSURL URLWithString:@"http://project-barbosa.herokuapp.com/"];
     PBHTTPSessionManager *manager = [[[self class] alloc] initWithBaseURL:baseURL];
     
     return manager;
