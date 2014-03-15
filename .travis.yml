@@ -7,5 +7,5 @@ before_install:
     - gem install cocoapods
 
 script:
-  - xctool -workspace Project\ Barbosa.xcworkspace -scheme Project\ Barbosa -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
-  - xctool test -workspace Project\ Barbosa.xcworkspace -scheme Project\ Barbosa -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
+  - xctool -workspace ProjectBarbosa.xcworkspace -scheme ProjectBarbosa -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
+  - xctool test -workspace ProjectBarbosa.xcworkspace -scheme ProjectBarbosa -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
