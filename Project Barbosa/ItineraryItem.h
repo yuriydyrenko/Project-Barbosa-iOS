@@ -21,8 +21,8 @@
 
 @interface ItineraryItem : JSONModel
 
-@property (nonatomic, copy) NSString *_id;
-@property (nonatomic, copy) NSString *title;
+@property (nonatomic, copy) NSString<Optional> *_id;
+@property (nonatomic, copy) NSString<Optional> *title;
 @property (nonatomic, copy) NSString<Optional> *details;
 @property (nonatomic, strong) ItineraryItemLocation<Optional> *location;
 

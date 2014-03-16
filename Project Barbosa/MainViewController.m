@@ -30,6 +30,7 @@ static NSString *loginViewControllerSegue = @"popoverLoginViewController";
 @property (nonatomic, strong) Trip *selectedPublicTrip;
 @property (nonatomic, strong) IBOutlet UIBarButtonItem *loginButton;
 @property (nonatomic, strong) UIPopoverController *loginPopoverController;
+@property (nonatomic, strong) UILabel *loginPrompt;
 
 @end
 
@@ -42,6 +43,10 @@ static NSString *loginViewControllerSegue = @"popoverLoginViewController";
     if([User loggedIn])
     {
         [self didFinishLoggingInSuccessfully];
+    }
+    else
+    {
+        [self showLoginNotice];
     }
     
     [PBTripManager getAllTripsWithSuccess:^(NSArray *trips, NSInteger count, NSArray *errors)
@@ -59,17 +64,29 @@ static NSString *loginViewControllerSegue = @"popoverLoginViewController";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     TripsCollectionViewCell *cell = (TripsCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
-    Trip *publicTrip = self.publicTrips[indexPath.row];
+    Trip *trip;
     
-    cell.tripName.text = publicTrip.name;
-    [cell.tripImage setImage: [publicTrip getMapImage]];
+    if(collectionView == self.userTripsCollectionView)
+        trip = self.userTrips[indexPath.row];
+    else
+        trip = self.publicTrips[indexPath.row];
+    
+    cell.tripName.text = trip.name;
+    [cell.tripImage setImage: [trip getMapImage]];
     
     return cell;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return [self.publicTrips count];
+    NSInteger count;
+    
+    if(collectionView == self.userTripsCollectionView)
+        count = self.userTrips.count;
+    else
+        count = self.publicTrips.count;
+    
+    return count;
 }
 
 #pragma mark - UICollectionsViewDelegate
@@ -112,8 +129,9 @@ static NSString *loginViewControllerSegue = @"popoverLoginViewController";
 #pragma mark - LoginViewControllerDelegate
 - (void)didFinishLoggingInSuccessfully
 {
-    NSLog(@"user logged in.");
     [self.loginPopoverController dismissPopoverAnimated:YES];
+    [self hideLoginNotice];
+    [self loadUserTrips];
     
     UIBarButtonItem *syncButton = [[UIBarButtonItem alloc] initWithTitle:@"Sync" style:UIBarButtonItemStylePlain target:self action:@selector(sync:)];
     self.navigationItem.leftBarButtonItem = syncButton;
@@ -139,8 +157,43 @@ static NSString *loginViewControllerSegue = @"popoverLoginViewController";
     UIBarButtonItem *loginButton = [[UIBarButtonItem alloc] initWithTitle:@"Login" style:UIBarButtonItemStylePlain target:self action:@selector(login:)];
     self.navigationItem.leftBarButtonItem = loginButton;
     self.navigationItem.rightBarButtonItem = nil;
+    
+    self.userTrips = nil;
+    [self.userTripsCollectionView reloadData];
+    
+    [self showLoginNotice];
 }
 
+- (void)loadUserTrips
+{
+    [PBTripManager getAllTripsForUserID:[User _id] success:^(NSArray *trips, NSInteger count, NSArray *errors)
+    {
+        self.userTrips = trips;
+        [self.userTripsCollectionView reloadData];
+    }
+    failure:^(NSError *error)
+    {
+        NSLog(@"Failed loading user trips.");
+    }];
+}
+
+#pragma mark - UI
+- (void)showLoginNotice
+{
+    _loginPrompt = [[UILabel alloc] initWithFrame:self.userTripsCollectionView.frame];
+    self.loginPrompt.text = @"Please login to view your trips.";
+    self.loginPrompt.textAlignment = NSTextAlignmentCenter;
+    self.loginPrompt.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:self.loginPrompt];
+}
+
+- (void)hideLoginNotice
+{
+    [self.loginPrompt removeFromSuperview];
+    self.loginPrompt = nil;
+}
+
+#pragma mark - NSOjbect
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

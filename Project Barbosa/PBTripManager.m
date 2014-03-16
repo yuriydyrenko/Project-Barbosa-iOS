@@ -14,20 +14,19 @@
 
 + (void)getAllTripsWithSuccess:(void (^)(NSArray *trips, NSInteger count, NSArray *errors))success failure:(void (^)(NSError *error))failure
 {
-    [self getTripsFromPath:@"trips" success:success failure:failure];
+    [self getTripsFromPath:@"trips" parameters:nil success:success failure:failure];
 }
 
 + (void)getAllTripsForUserID:(NSString *)userID success:(void (^)(NSArray *trips, NSInteger count, NSArray *errors))success failure:(void (^)(NSError *error))failure
 {
-    NSString *path = [NSString stringWithFormat:@"trips?userID=%@", userID];
-    [self getTripsFromPath:path success:success failure:failure];
+    [self getTripsFromPath:@"trips" parameters:@{@"userID": userID} success:success failure:failure];
 }
 
-+ (void)getTripsFromPath:(NSString *)path success:(void (^)(NSArray *trips, NSInteger count, NSArray *errors))success failure:(void (^)(NSError *error))failure;
++ (void)getTripsFromPath:(NSString *)path parameters:(NSDictionary *)parameters success:(void (^)(NSArray *trips, NSInteger count, NSArray *errors))success failure:(void (^)(NSError *error))failure;
 {
     [PBHTTPSessionManager startedRequest];
     PBHTTPSessionManager *manager = [PBHTTPSessionManager manager];
-    [manager GET:@"trips" parameters:nil success:^(NSURLSessionDataTask *task, id responseObject)
+    [manager GET:path parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject)
     {
         NSError *error = nil;
         
@@ -63,6 +62,8 @@
                 failure(error);
             }
         }
+        
+        [PBHTTPSessionManager finishedRequest];
     }
     failure:^(NSURLSessionDataTask *task, NSError *error)
     {
@@ -70,6 +71,8 @@
         {
             failure(error);
         }
+        
+        [PBHTTPSessionManager finishedRequest];
     }];
 }
 

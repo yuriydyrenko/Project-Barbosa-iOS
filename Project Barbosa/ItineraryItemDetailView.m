@@ -19,7 +19,6 @@
 
 - (void)displayNoItineraryItemSelected
 {
-    NSLog(@"displayNoItineraryItem");
     self.title.text = @"No Itinerary Item Selected";
 }
 
