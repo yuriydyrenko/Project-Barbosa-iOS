@@ -76,4 +76,19 @@
     }];
 }
 
++ (void)storeSavedTrips:(NSArray *)trips
+{
+    
+}
+
++ (NSArray *)loadSavedTrips
+{
+    return nil;
+}
+
++ (void)removeSavedTrips
+{
+    
+}
+
 @end
