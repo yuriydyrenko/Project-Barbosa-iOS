@@ -10,6 +10,8 @@
 #import "PB.h"
 #import "Trip.h"
 
+static NSString *kSavedTrips = @"PBSavedTrips";
+
 @implementation PBTripManager
 
 + (void)getAllTripsWithSuccess:(void (^)(NSArray *trips, NSInteger count, NSArray *errors))success failure:(void (^)(NSError *error))failure
@@ -78,17 +80,17 @@
 
 + (void)storeSavedTrips:(NSArray *)trips
 {
-    
+    [[NSUserDefaults standardUserDefaults] setObject:trips forKey:kSavedTrips];
 }
 
 + (NSArray *)loadSavedTrips
 {
-    return nil;
+    return [[NSUserDefaults standardUserDefaults] objectForKey:kSavedTrips];
 }
 
 + (void)removeSavedTrips
 {
-    
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:kSavedTrips];
 }
 
 @end

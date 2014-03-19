@@ -16,9 +16,16 @@
 #import "User.h"
 #import <Reachability/Reachability.h>
 
+static NSUInteger kUserNoticesDefaultCapacity = 5;
+static NSString *kDefaultURLToTest = @"www.google.com";
+
 static NSString *cellIdentifier = @"TripsCollectionViewCell";
 static NSString *tripViewControllerSegue = @"pushTripViewController";
 static NSString *loginViewControllerSegue = @"popoverLoginViewController";
+
+typedef NS_ENUM(NSUInteger, PBNoticeType) {
+    PBNoticeTypeLogin
+};
 
 @interface MainViewController ()
 
@@ -31,7 +38,7 @@ static NSString *loginViewControllerSegue = @"popoverLoginViewController";
 @property (nonatomic, strong) Trip *selectedPublicTrip;
 @property (nonatomic, strong) IBOutlet UIBarButtonItem *loginButton;
 @property (nonatomic, strong) UIPopoverController *loginPopoverController;
-@property (nonatomic, strong) UILabel *loginPrompt;
+@property (nonatomic, strong) NSMutableDictionary *userNotices;
 
 @end
 
@@ -41,37 +48,38 @@ static NSString *loginViewControllerSegue = @"popoverLoginViewController";
 {
     [super viewDidLoad];
     
-    if([User loggedIn])
-    {
-        [self didFinishLoggingInSuccessfully];
-    }
-    else
-    {
-        [self showLoginNotice];
-    }
-    
-    [PBTripManager getAllTripsWithSuccess:^(NSArray *trips, NSInteger count, NSArray *errors)
-    {
-        self.publicTrips = trips;
-        [self.publicTripsCollectionView reloadData];
-    }
-    failure:^(NSError *error)
-    {
-        NSLog(@"Error: %@", error);
-    }];
-    
-    Reachability *reach = [Reachability reachabilityWithHostname:@"www.google.com"];
-    
+    _userNotices = [[NSMutableDictionary alloc] initWithCapacity:kUserNoticesDefaultCapacity];
+    Reachability *reach = [Reachability reachabilityWithHostname:kDefaultURLToTest];
     reach.reachableBlock = ^(Reachability *reach)
     {
-        NSLog(@"Google.com is reachable.");
+        dispatch_async(dispatch_get_main_queue(), ^
+        {
+            if([User loggedIn])
+            {
+                [self didFinishLoggingInSuccessfully];
+            }
+            else
+            {
+                [self showLoginNotice];
+            }
+            
+            [self loadPublicTrips];
+        });
     };
-    
     reach.unreachableBlock = ^(Reachability *reach)
     {
-        NSLog(@"Google.com is unreachable.");
+        dispatch_async(dispatch_get_main_queue(), ^
+        {
+            if([User loggedIn])
+            {
+                [self loadSavedTrips];
+            }
+            else
+            {
+                
+            }
+        });
     };
-    
     
     [reach startNotifier];
 }
@@ -165,6 +173,7 @@ static NSString *loginViewControllerSegue = @"popoverLoginViewController";
 - (void)sync:(UIBarButtonItem *)button
 {
     NSLog(@"sync");
+    [self loadUserTrips];
 }
 
 - (void)logout:(UIBarButtonItem *)button
@@ -180,12 +189,26 @@ static NSString *loginViewControllerSegue = @"popoverLoginViewController";
     [self showLoginNotice];
 }
 
+- (void)loadPublicTrips
+{
+    [PBTripManager getAllTripsWithSuccess:^(NSArray *trips, NSInteger count, NSArray *errors)
+    {
+        self.publicTrips = trips;
+        [self.publicTripsCollectionView reloadData];
+    }
+    failure:^(NSError *error)
+    {
+        NSLog(@"Error: %@", error);
+    }];
+}
+
 - (void)loadUserTrips
 {
     [PBTripManager getAllTripsForUserID:[User _id] success:^(NSArray *trips, NSInteger count, NSArray *errors)
     {
         self.userTrips = trips;
         [self.userTripsCollectionView reloadData];
+        [PBTripManager storeSavedTrips:self.userTrips];
     }
     failure:^(NSError *error)
     {
@@ -193,20 +216,43 @@ static NSString *loginViewControllerSegue = @"popoverLoginViewController";
     }];
 }
 
+- (void)loadSavedTrips
+{
+    self.userTrips = [PBTripManager loadSavedTrips];
+    [self.userTripsCollectionView reloadData];
+}
+
 #pragma mark - UI
 - (void)showLoginNotice
 {
-    _loginPrompt = [[UILabel alloc] initWithFrame:self.userTripsCollectionView.frame];
-    self.loginPrompt.text = @"Please login to view your trips.";
-    self.loginPrompt.textAlignment = NSTextAlignmentCenter;
-    self.loginPrompt.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:self.loginPrompt];
+    [self showNoticeType:PBNoticeTypeLogin aboveView:self.userTripsCollectionView text:@"Please login to view your trips."];
 }
 
 - (void)hideLoginNotice
 {
-    [self.loginPrompt removeFromSuperview];
-    self.loginPrompt = nil;
+    [self removeNoticeType:PBNoticeTypeLogin];
+}
+
+- (void)showNoticeType:(PBNoticeType)noticeType aboveView:(UIView *)view text:(NSString *)text
+{
+    UILabel *notice = [[UILabel alloc] initWithFrame:view.frame];
+    notice.text = text;
+    notice.textAlignment = NSTextAlignmentCenter;
+    notice.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:notice];
+    [self.view bringSubviewToFront:notice];
+    [self.userNotices setObject:notice forKey:@(noticeType)];
+}
+
+- (void)removeNoticeType:(PBNoticeType)noticeType
+{
+    UILabel *notice = self.userNotices[@(noticeType)];
+    
+    if(notice != nil)
+    {
+        [notice removeFromSuperview];
+        [self.userNotices removeObjectForKey:@(noticeType)];
+    }
 }
 
 #pragma mark - NSOjbect
