@@ -14,6 +14,7 @@
 #import "Trip.h"
 #import "TripViewController.h"
 #import "User.h"
+#import <Reachability/Reachability.h>
 
 static NSString *cellIdentifier = @"TripsCollectionViewCell";
 static NSString *tripViewControllerSegue = @"pushTripViewController";
@@ -58,6 +59,21 @@ static NSString *loginViewControllerSegue = @"popoverLoginViewController";
     {
         NSLog(@"Error: %@", error);
     }];
+    
+    Reachability *reach = [Reachability reachabilityWithHostname:@"www.google.com"];
+    
+    reach.reachableBlock = ^(Reachability *reach)
+    {
+        NSLog(@"Google.com is reachable.");
+    };
+    
+    reach.unreachableBlock = ^(Reachability *reach)
+    {
+        NSLog(@"Google.com is unreachable.");
+    };
+    
+    
+    [reach startNotifier];
 }
 
 #pragma mark - UICollectionsViewDataSource
