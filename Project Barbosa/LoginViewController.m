@@ -28,17 +28,26 @@
 #pragma mark - Actions
 - (IBAction)done:(id)sender
 {
+    UIAlertView *alertView = nil;
     NSString *email = self.email.text;
     NSString *password = self.password.text;
     
     if([email isEqualToString:@""])
     {
-        //Handle error.
+        alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Please enter your email." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        [self.email becomeFirstResponder];
     }
     
     if([password isEqualToString:@""])
     {
-        //Handle error.
+        alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Please enter your password" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        [self.password becomeFirstResponder];
+    }
+    
+    if(alertView != nil)
+    {
+        [alertView show];
+        return;
     }
     
     [PBHTTPSessionManager startedRequest];
