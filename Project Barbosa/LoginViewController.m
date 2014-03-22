@@ -14,7 +14,6 @@
 
 @property (nonatomic, weak) IBOutlet UITextField *email;
 @property (nonatomic, weak) IBOutlet UITextField *password;
-@property (nonatomic, weak) IBOutlet UILabel *errorMessage;
 
 @end
 
@@ -28,65 +27,63 @@
 #pragma mark - Actions
 - (IBAction)done:(id)sender
 {
-    UIAlertView *alertView = nil;
     NSString *email = self.email.text;
     NSString *password = self.password.text;
     
     if([email isEqualToString:@""])
     {
-        alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Please enter your email." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        [self showErrorAlertWithMessage:@"Please enter your email."];
         [self.email becomeFirstResponder];
     }
-    
-    if([password isEqualToString:@""])
+    else if([password isEqualToString:@""])
     {
-        alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Please enter your password" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        [self showErrorAlertWithMessage:@"Please enter your password"];
         [self.password becomeFirstResponder];
     }
-    
-    if(alertView != nil)
+    else
     {
-        [alertView show];
-        return;
-    }
-    
-    [PBHTTPSessionManager startedRequest];
-    PBHTTPSessionManager *manager = [PBHTTPSessionManager manager];
-    [manager POST:@"login" parameters:@{@"email": email, @"password": password} success:^(NSURLSessionDataTask *task, id responseObject)
-    {
-        if(responseObject != nil)
+        [PBHTTPSessionManager startedRequest];
+        PBHTTPSessionManager *manager = [PBHTTPSessionManager manager];
+        [manager POST:@"login" parameters:@{@"email": email, @"password": password} success:^(NSURLSessionDataTask *task, id responseObject)
         {
-            if([responseObject isKindOfClass:[NSDictionary class]])
+            if(responseObject != nil)
             {
-                [User setID:[responseObject objectForKey:@"userID"]];
-                [self.delegate didFinishLoggingInSuccessfully];
+                if([responseObject isKindOfClass:[NSDictionary class]])
+                {
+                    [User setID:[responseObject objectForKey:@"userID"]];
+                    [self.delegate didFinishLoggingInSuccessfully];
+                }
+                else
+                {
+                    NSString *errorMessage = @"";
+                    
+                    for(NSString *message in responseObject)
+                    {
+                        [errorMessage stringByAppendingFormat:@"%@ ", message];
+                    }
+                    
+                    [self showErrorAlertWithMessage:errorMessage];
+                }
             }
             else
             {
-                for(NSString *message in responseObject)
-                {
-                    NSLog(@"%@", message);
-                }
+                [self showErrorAlertWithMessage:@"A server error has occured, could not login."];
             }
+            
+            [PBHTTPSessionManager finishedRequest];
         }
-        else
+        failure:^(NSURLSessionDataTask *task, NSError *error)
         {
-            NSLog(@"Error");
-        }
-        
-        [PBHTTPSessionManager finishedRequest];
+            [self showErrorAlertWithMessage:@"Could not connect to server."];
+            [PBHTTPSessionManager finishedRequest];
+        }];
     }
-    failure:^(NSURLSessionDataTask *task, NSError *error)
-    {
-        NSLog(@"Error: %@", error);
-        [PBHTTPSessionManager finishedRequest];
-    }];
 }
 
-- (void)didReceiveMemoryWarning
+- (void)showErrorAlertWithMessage:(NSString *)message
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:message delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+    [alertView show];
 }
 
 @end
