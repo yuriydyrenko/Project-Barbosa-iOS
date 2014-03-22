@@ -80,7 +80,10 @@ static NSString *kSavedTrips = @"PBSavedTrips";
 
 + (void)storeSavedTrips:(NSArray *)trips
 {
-    [[NSUserDefaults standardUserDefaults] setObject:trips forKey:kSavedTrips];
+    if([trips isKindOfClass:[NSArray class]] || [trips isKindOfClass:[NSMutableArray class]])
+    {
+        [[NSUserDefaults standardUserDefaults] setObject:trips forKey:kSavedTrips];
+    }
 }
 
 + (NSArray *)loadSavedTrips
