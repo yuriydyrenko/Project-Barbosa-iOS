@@ -55,14 +55,21 @@
                 }
                 else
                 {
-                    NSString *errorMessage = @"";
-                    
-                    for(NSString *message in responseObject)
+                    if([responseObject isKindOfClass:[NSArray class]])
                     {
-                        [errorMessage stringByAppendingFormat:@"%@ ", message];
+                        NSString *errorMessage = @"";
+                        
+                        for(NSDictionary *message in responseObject)
+                        {
+                            errorMessage = [errorMessage stringByAppendingFormat:@"%@ ", message[@"msg"]];
+                        }
+                        
+                        [self showErrorAlertWithMessage:errorMessage];
                     }
-                    
-                    [self showErrorAlertWithMessage:errorMessage];
+                    else
+                    {
+                        [self showErrorAlertWithMessage:@"Could not login."];
+                    }
                 }
             }
             else
