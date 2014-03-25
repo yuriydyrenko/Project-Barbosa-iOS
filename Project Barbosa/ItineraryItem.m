@@ -8,6 +8,11 @@
 
 #import "ItineraryItem.h"
 
+static NSString *kItineraryItemID = @"ItineraryItemID";
+static NSString *kItineraryItemTitle = @"ItineraryItemTitle";
+static NSString *kItineraryItemDetails = @"ItineraryItemDetails";
+
+
 @implementation ItineraryItem
 
 - (id)initWithID:(NSString *)_id title:(NSString *)title
@@ -21,6 +26,13 @@
     }
     
     return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder
+{
+    [coder encodeObject:self._id forKey:kItineraryItemID];
+    [coder encodeObject:self.title forKey:kItineraryItemTitle];
+    [coder encodeObject:self.details forKey:kItineraryItemDetails];
 }
 
 + (JSONKeyMapper*)keyMapper

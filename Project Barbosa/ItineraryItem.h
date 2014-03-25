@@ -7,14 +7,7 @@
 //
 
 #import "JSONModel.h"
-
-@interface ItineraryItemLocation : JSONModel
-
-@property (nonatomic, copy) NSString *name;
-@property (nonatomic, assign) CGFloat latitude;
-@property (nonatomic, assign) CGFloat longitude;
-
-@end
+#import "ItineraryItemLocation.h"
 
 @protocol ItineraryItem
 @end

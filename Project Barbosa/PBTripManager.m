@@ -21,7 +21,8 @@ static NSString *kSavedTrips = @"PBSavedTrips";
 
 + (void)getAllTripsForUserID:(NSString *)userID success:(void (^)(NSArray *trips, NSInteger count, NSArray *errors))success failure:(void (^)(NSError *error))failure
 {
-    [self getTripsFromPath:@"trips" parameters:@{@"userID": userID} success:success failure:failure];
+    //[self getTripsFromPath:@"trips" parameters:@{@"userID": userID} success:success failure:failure];
+    [self getTripsFromPath:@"trips" parameters:nil success:success failure:failure];
 }
 
 + (void)getTripsFromPath:(NSString *)path parameters:(NSDictionary *)parameters success:(void (^)(NSArray *trips, NSInteger count, NSArray *errors))success failure:(void (^)(NSError *error))failure;
@@ -31,6 +32,8 @@ static NSString *kSavedTrips = @"PBSavedTrips";
     [manager GET:path parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject)
     {
         NSError *error = nil;
+        
+        NSLog(@"got trips: %@", responseObject);
         
         if(responseObject != nil)
         {
@@ -54,7 +57,7 @@ static NSString *kSavedTrips = @"PBSavedTrips";
                 }
             }
             
-            success(trips, count, errors);
+            success([trips copy], count, errors);
         }
         else
         {
@@ -82,7 +85,8 @@ static NSString *kSavedTrips = @"PBSavedTrips";
 {
     if([trips isKindOfClass:[NSArray class]] || [trips isKindOfClass:[NSMutableArray class]])
     {
-        [[NSUserDefaults standardUserDefaults] setObject:trips forKey:kSavedTrips];
+        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:trips];
+        [[NSUserDefaults standardUserDefaults] setObject:data forKey:kSavedTrips];
     }
 }
 

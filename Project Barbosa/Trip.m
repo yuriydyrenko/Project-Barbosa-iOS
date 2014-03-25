@@ -8,6 +8,10 @@
 
 #import "Trip.h"
 
+static NSString *TripID = @"TripID";
+static NSString *TripName = @"TripName";
+static NSString *TripItinerary = @"TripItinerary";
+
 @implementation Trip
 
 - (id)initWithID:(NSString *)_id name:(NSString *)name
@@ -21,6 +25,13 @@
     }
     
     return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder
+{
+    [coder encodeObject:self._id forKey:TripID];
+    [coder encodeObject:self.name forKey:TripName];
+    [coder encodeObject:self.itinerary forKey:TripItinerary];
 }
 
 - (UIImage*)getMapImage
