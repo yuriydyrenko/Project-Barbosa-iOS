@@ -8,6 +8,31 @@
 
 #import "ItineraryItemLocation.h"
 
+static NSString *kItineraryItemLocationName = @"kItineraryItemLocationName";
+static NSString *kItineraryItemLocationLatitude = @"kItineraryItemLocationLatitude";
+static NSString *kItineraryItemLocationLongitude = @"kItineraryItemLocationLongitude";
+
 @implementation ItineraryItemLocation
+
+- (id)initWithCoder:(NSCoder *)coder
+{
+    self = [super init];
+    
+    if(self)
+    {
+        self.name = [coder decodeObjectForKey:kItineraryItemLocationName];
+        self.latitude = [[coder decodeObjectForKey:kItineraryItemLocationLatitude] floatValue];
+        self.longitude = [[coder decodeObjectForKey:kItineraryItemLocationLongitude] floatValue];
+    }
+    
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder
+{
+    [coder encodeObject:self.name forKey:kItineraryItemLocationName];
+    [coder encodeFloat:self.latitude forKey:kItineraryItemLocationLatitude];
+    [coder encodeFloat:self.longitude forKey:kItineraryItemLocationLongitude];
+}
 
 @end

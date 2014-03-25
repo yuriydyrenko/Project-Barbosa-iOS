@@ -33,8 +33,6 @@ static NSString *kSavedTrips = @"PBSavedTrips";
     {
         NSError *error = nil;
         
-        NSLog(@"got trips: %@", responseObject);
-        
         if(responseObject != nil)
         {
             Trip *trip = nil;
@@ -92,7 +90,9 @@ static NSString *kSavedTrips = @"PBSavedTrips";
 
 + (NSArray *)loadSavedTrips
 {
-    return [[NSUserDefaults standardUserDefaults] objectForKey:kSavedTrips];
+    NSData *data = (NSData *)[[NSUserDefaults standardUserDefaults] objectForKey:kSavedTrips];
+    NSArray *trips = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    return trips;
 }
 
 + (void)removeSavedTrips

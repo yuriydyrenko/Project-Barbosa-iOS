@@ -193,8 +193,6 @@ typedef NS_ENUM(NSUInteger, PBNoticeType) {
     [PBTripManager getAllTripsWithSuccess:^(NSArray *trips, NSInteger count, NSArray *errors)
     {
         self.publicTrips = trips;
-        Trip *trip = [trips objectAtIndex:0];
-        NSLog(@"public trips: %@", trip);
         [self.publicTripsCollectionView reloadData];
     }
     failure:^(NSError *error)
@@ -207,7 +205,6 @@ typedef NS_ENUM(NSUInteger, PBNoticeType) {
 {
     [PBTripManager getAllTripsForUserID:[User _id] success:^(NSArray *trips, NSInteger count, NSArray *errors)
     {
-        NSLog(@"got trips: %@ %@", [trips class], trips);
         self.userTrips = trips;
         [self.userTripsCollectionView reloadData];
         [PBTripManager storeSavedTrips:self.userTrips];

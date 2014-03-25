@@ -8,9 +8,9 @@
 
 #import "Trip.h"
 
-static NSString *TripID = @"TripID";
-static NSString *TripName = @"TripName";
-static NSString *TripItinerary = @"TripItinerary";
+static NSString *kTripID = @"kTripID";
+static NSString *kTripName = @"kTripName";
+static NSString *kTripItinerary = @"kTripItinerary";
 
 @implementation Trip
 
@@ -27,11 +27,25 @@ static NSString *TripItinerary = @"TripItinerary";
     return self;
 }
 
+- (id)initWithCoder:(NSCoder *)coder
+{
+    self = [super init];
+    
+    if(self)
+    {
+        self._id = [coder decodeObjectForKey:kTripID];
+        self.name = [coder decodeObjectForKey:kTripName];
+        self.itinerary = [coder decodeObjectForKey:kTripItinerary];
+    }
+    
+    return self;
+}
+
 - (void)encodeWithCoder:(NSCoder *)coder
 {
-    [coder encodeObject:self._id forKey:TripID];
-    [coder encodeObject:self.name forKey:TripName];
-    [coder encodeObject:self.itinerary forKey:TripItinerary];
+    [coder encodeObject:self._id forKey:kTripID];
+    [coder encodeObject:self.name forKey:kTripName];
+    [coder encodeObject:self.itinerary forKey:kTripItinerary];
 }
 
 - (UIImage*)getMapImage

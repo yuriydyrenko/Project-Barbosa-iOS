@@ -8,10 +8,10 @@
 
 #import "ItineraryItem.h"
 
-static NSString *kItineraryItemID = @"ItineraryItemID";
-static NSString *kItineraryItemTitle = @"ItineraryItemTitle";
-static NSString *kItineraryItemDetails = @"ItineraryItemDetails";
-
+static NSString *kItineraryItemID = @"kItineraryItemID";
+static NSString *kItineraryItemTitle = @"kItineraryItemTitle";
+static NSString *kItineraryItemDetails = @"kItineraryItemDetails";
+static NSString *kItineraryItemLocation = @"kItineraryItemLocation";
 
 @implementation ItineraryItem
 
@@ -28,11 +28,27 @@ static NSString *kItineraryItemDetails = @"ItineraryItemDetails";
     return self;
 }
 
+- (id)initWithCoder:(NSCoder *)coder
+{
+    self = [super init];
+    
+    if(self)
+    {
+        self._id = [coder decodeObjectForKey:kItineraryItemID];
+        self.title = [coder decodeObjectForKey:kItineraryItemTitle];
+        self.details = [coder decodeObjectForKey:kItineraryItemDetails];
+        self.location = [coder decodeObjectForKey:kItineraryItemLocation];
+    }
+    
+    return self;
+}
+
 - (void)encodeWithCoder:(NSCoder *)coder
 {
     [coder encodeObject:self._id forKey:kItineraryItemID];
     [coder encodeObject:self.title forKey:kItineraryItemTitle];
     [coder encodeObject:self.details forKey:kItineraryItemDetails];
+    [coder encodeObject:self.location forKey:kItineraryItemLocation];
 }
 
 + (JSONKeyMapper*)keyMapper
