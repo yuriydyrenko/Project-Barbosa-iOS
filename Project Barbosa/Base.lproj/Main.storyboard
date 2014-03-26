@@ -135,6 +135,11 @@
                                 </segue>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Refresh" id="6bs-C2-iZO">
+                            <connections>
+                                <action selector="refresh:" destination="Mv6-fW-GzY" id="sAO-F3-xd2"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="loginButton" destination="Te1-no-4Ya" id="Ovg-Nn-nFC"/>
@@ -149,7 +154,7 @@
         <!--Navigation Controller-->
         <scene sceneID="Y4V-nG-dVN">
             <objects>
-                <navigationController definesPresentationContext="YES" id="uBQ-dZ-3oa" sceneMemberID="viewController">
+                <navigationController restorationIdentifier="LoginViewController" storyboardIdentifier="LoginViewController" definesPresentationContext="YES" id="uBQ-dZ-3oa" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="IDJ-om-Cy5">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

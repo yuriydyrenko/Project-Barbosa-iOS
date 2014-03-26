@@ -20,6 +20,7 @@ static NSUInteger kUserNoticesDefaultCapacity = 5;
 static NSString *kDefaultURLToTest = @"www.google.com";
 
 static NSString *cellIdentifier = @"TripsCollectionViewCell";
+static NSString *loginViewControllerIdentifier = @"LoginViewController";
 static NSString *tripViewControllerSegue = @"pushTripViewController";
 static NSString *loginViewControllerSegue = @"popoverLoginViewController";
 
@@ -73,10 +74,11 @@ typedef NS_ENUM(NSUInteger, PBNoticeType) {
             if([User loggedIn])
             {
                 [self loadSavedTrips];
+                [self didFinishLoggingInSuccessfully];
             }
             else
             {
-                
+                [self showLoginNotice];
             }
         });
     };
@@ -167,12 +169,29 @@ typedef NS_ENUM(NSUInteger, PBNoticeType) {
 #pragma mark - Actions
 - (void)login:(UIBarButtonItem *)button
 {
-    [self.loginPopoverController presentPopoverFromBarButtonItem:button permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+    if(self.loginPopoverController)
+    {
+        [self.loginPopoverController presentPopoverFromBarButtonItem:button permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+    }
+    else
+    {
+        UINavigationController *loginNavigationController = [self.storyboard instantiateViewControllerWithIdentifier:loginViewControllerIdentifier];
+        LoginViewController *loginViewController = (LoginViewController *)loginNavigationController.viewControllers[0];
+        loginViewController.delegate = self;
+        _loginPopoverController = [[UIPopoverController alloc] initWithContentViewController:loginNavigationController];
+        [self.loginPopoverController presentPopoverFromBarButtonItem:button permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    }
+}
+
+- (IBAction)refresh:(UIBarButtonItem *)button
+{
+    [self loadPublicTrips];
 }
 
 - (void)sync:(UIBarButtonItem *)button
 {
     [self loadUserTrips];
+    [self loadPublicTrips];
 }
 
 - (void)logout:(UIBarButtonItem *)button
@@ -180,7 +199,9 @@ typedef NS_ENUM(NSUInteger, PBNoticeType) {
     [User logout];
     UIBarButtonItem *loginButton = [[UIBarButtonItem alloc] initWithTitle:@"Login" style:UIBarButtonItemStylePlain target:self action:@selector(login:)];
     self.navigationItem.leftBarButtonItem = loginButton;
-    self.navigationItem.rightBarButtonItem = nil;
+    
+    UIBarButtonItem *refreshButton = [[UIBarButtonItem alloc] initWithTitle:@"Refresh" style:UIBarButtonItemStylePlain target:self action:@selector(refresh:)];
+    self.navigationItem.rightBarButtonItem = refreshButton;
     
     self.userTrips = nil;
     [self.userTripsCollectionView reloadData];
@@ -197,7 +218,7 @@ typedef NS_ENUM(NSUInteger, PBNoticeType) {
     }
     failure:^(NSError *error)
     {
-        NSLog(@"Error: %@", error);
+        [self showErrorAlertWithMessage:@"Could not get public trips."];
     }];
 }
 
@@ -211,7 +232,7 @@ typedef NS_ENUM(NSUInteger, PBNoticeType) {
     }
     failure:^(NSError *error)
     {
-        NSLog(@"Failed loading user trips.");
+        [self showErrorAlertWithMessage:@"Could not get your trips from server."];
     }];
 }
 
@@ -252,6 +273,12 @@ typedef NS_ENUM(NSUInteger, PBNoticeType) {
         [notice removeFromSuperview];
         [self.userNotices removeObjectForKey:@(noticeType)];
     }
+}
+
+- (void)showErrorAlertWithMessage:(NSString *)message
+{
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:message delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+    [alertView show];
 }
 
 #pragma mark - NSOjbect

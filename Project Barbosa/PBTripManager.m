@@ -21,8 +21,7 @@ static NSString *kSavedTrips = @"PBSavedTrips";
 
 + (void)getAllTripsForUserID:(NSString *)userID success:(void (^)(NSArray *trips, NSInteger count, NSArray *errors))success failure:(void (^)(NSError *error))failure
 {
-    //[self getTripsFromPath:@"trips" parameters:@{@"userID": userID} success:success failure:failure];
-    [self getTripsFromPath:@"trips" parameters:nil success:success failure:failure];
+    [self getTripsFromPath:@"trips" parameters:@{@"userID": userID} success:success failure:failure];
 }
 
 + (void)getTripsFromPath:(NSString *)path parameters:(NSDictionary *)parameters success:(void (^)(NSArray *trips, NSInteger count, NSArray *errors))success failure:(void (^)(NSError *error))failure;
@@ -85,6 +84,7 @@ static NSString *kSavedTrips = @"PBSavedTrips";
     {
         NSData *data = [NSKeyedArchiver archivedDataWithRootObject:trips];
         [[NSUserDefaults standardUserDefaults] setObject:data forKey:kSavedTrips];
+        [[NSUserDefaults standardUserDefaults] synchronize];
     }
 }
 
@@ -98,6 +98,7 @@ static NSString *kSavedTrips = @"PBSavedTrips";
 + (void)removeSavedTrips
 {
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:kSavedTrips];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 @end

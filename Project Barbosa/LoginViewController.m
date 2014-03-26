@@ -50,6 +50,8 @@
             {
                 if([responseObject isKindOfClass:[NSDictionary class]])
                 {
+                    self.email.text = @"";
+                    self.password.text = @"";
                     [User setID:[responseObject objectForKey:@"userID"]];
                     [self.delegate didFinishLoggingInSuccessfully];
                 }
