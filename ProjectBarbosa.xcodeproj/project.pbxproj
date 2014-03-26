@@ -35,6 +35,7 @@
 		5B1C5DED18CE37E4009E0D22 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B1C5DEB18CE37E4009E0D22 /* User.m */; };
 		5B1C5DF118CE39FD009E0D22 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B1C5DF018CE39FD009E0D22 /* LoginViewController.m */; };
 		5B1C5DF218CE39FD009E0D22 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B1C5DF018CE39FD009E0D22 /* LoginViewController.m */; };
+		5B46F85018E2795C0019D2F2 /* ItineraryItemLocation_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B46F84F18E2795C0019D2F2 /* ItineraryItemLocation_Tests.m */; };
 		5B5C7BEF18D440340046CF4F /* PBTripManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B5C7BEE18D440340046CF4F /* PBTripManager.m */; };
 		5B5C7BF218D4C8270046CF4F /* PBTripManager_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B5C7BF118D4C8270046CF4F /* PBTripManager_Tests.m */; };
 		5B96AE1E18E0D252008C00E4 /* ItineraryItemLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B96AE1D18E0D252008C00E4 /* ItineraryItemLocation.m */; };
@@ -108,6 +109,7 @@
 		5B1C5DEB18CE37E4009E0D22 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		5B1C5DEF18CE39FD009E0D22 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		5B1C5DF018CE39FD009E0D22 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		5B46F84F18E2795C0019D2F2 /* ItineraryItemLocation_Tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItineraryItemLocation_Tests.m; sourceTree = "<group>"; };
 		5B5C7BED18D440340046CF4F /* PBTripManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PBTripManager.h; sourceTree = "<group>"; };
 		5B5C7BEE18D440340046CF4F /* PBTripManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PBTripManager.m; sourceTree = "<group>"; };
 		5B5C7BF018D440440046CF4F /* PB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PB.h; sourceTree = "<group>"; };
@@ -241,6 +243,7 @@
 				5BB9E76418C11D2C00C9782E /* Trip_Tests.m */,
 				5BF81CA318D2201400CB7E30 /* User_Tests.m */,
 				5BF81CA518D2214A00CB7E30 /* ItineraryItem_Tests.m */,
+				5B46F84F18E2795C0019D2F2 /* ItineraryItemLocation_Tests.m */,
 				5B5C7BF118D4C8270046CF4F /* PBTripManager_Tests.m */,
 				5B03B71218AAA3970009FF93 /* Supporting Files */,
 			);
@@ -521,6 +524,7 @@
 				5B1C5DED18CE37E4009E0D22 /* User.m in Sources */,
 				5BD564A318D12D18008209A7 /* TripViewMapView.m in Sources */,
 				5BD5649B18D110DE008209A7 /* ItineraryItemTableViewCell.m in Sources */,
+				5B46F85018E2795C0019D2F2 /* ItineraryItemLocation_Tests.m in Sources */,
 				5BF81CA618D2214A00CB7E30 /* ItineraryItem_Tests.m in Sources */,
 				5BB9E74218BFE33100C9782E /* PBHTTPSessionManager.m in Sources */,
 				5B03B71818AAA3970009FF93 /* ProjectBarbosa_Tests.m in Sources */,

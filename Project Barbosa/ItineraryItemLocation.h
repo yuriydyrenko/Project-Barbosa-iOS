@@ -17,4 +17,6 @@
 @property (nonatomic, assign) CGFloat latitude;
 @property (nonatomic, assign) CGFloat longitude;
 
+- (id)initWithName:(NSString *)name latitude:(CGFloat)latitude longitude:(CGFloat)longitude;
+
 @end

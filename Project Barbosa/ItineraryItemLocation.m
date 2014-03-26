@@ -14,6 +14,20 @@ static NSString *kItineraryItemLocationLongitude = @"kItineraryItemLocationLongi
 
 @implementation ItineraryItemLocation
 
+- (id)initWithName:(NSString *)name latitude:(CGFloat)latitude longitude:(CGFloat)longitude
+{
+    self = [super init];
+    
+    if(self)
+    {
+        self.name = name;
+        self.latitude = latitude;
+        self.longitude = longitude;
+    }
+    
+    return self;
+}
+
 - (id)initWithCoder:(NSCoder *)coder
 {
     self = [super init];
@@ -21,8 +35,8 @@ static NSString *kItineraryItemLocationLongitude = @"kItineraryItemLocationLongi
     if(self)
     {
         self.name = [coder decodeObjectForKey:kItineraryItemLocationName];
-        self.latitude = [[coder decodeObjectForKey:kItineraryItemLocationLatitude] floatValue];
-        self.longitude = [[coder decodeObjectForKey:kItineraryItemLocationLongitude] floatValue];
+        self.latitude = [coder decodeFloatForKey:kItineraryItemLocationLatitude];
+        self.longitude = [coder decodeFloatForKey:kItineraryItemLocationLongitude];
     }
     
     return self;
