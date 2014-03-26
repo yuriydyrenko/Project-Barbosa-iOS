@@ -19,4 +19,8 @@ typedef enum : NSUInteger
 + (void)getAllTripsWithSuccess:(void (^)(NSArray *trips, NSInteger count, NSArray *errors))success failure:(void (^)(NSError *error))failure;
 + (void)getAllTripsForUserID:(NSString *)userID success:(void (^)(NSArray *trips, NSInteger count, NSArray *errors))success failure:(void (^)(NSError *error))failure;
 
++ (void)storeSavedTrips:(NSArray *)trips;
++ (NSArray *)loadSavedTrips;
++ (void)removeSavedTrips;
+
 @end

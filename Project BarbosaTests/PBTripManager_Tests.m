@@ -25,6 +25,28 @@ describe(@"PBTripManager", ^{
         
         [[expectFutureValue(allTrips) shouldEventuallyBeforeTimingOutAfter(4.0)] beNonNil];
     });
+    
+    it(@"should store and return a nil value", ^{
+        NSArray *nilArray = nil;
+        [PBTripManager storeSavedTrips:nilArray];
+        nilArray = [PBTripManager loadSavedTrips];
+        [[nilArray should] beNil];
+    });
+    
+    it(@"should save an empty array and delete it", ^{
+        NSArray *empty = [[NSArray alloc] initWithObjects:nil, nil];
+        NSArray *saved = nil;
+        [PBTripManager storeSavedTrips:empty];
+        
+        saved = [PBTripManager loadSavedTrips];
+        
+        [[saved should] beNonNil];
+        [[theValue(saved.count) should] equal:theValue(0)];
+        
+        [PBTripManager removeSavedTrips];
+        saved = [PBTripManager loadSavedTrips];
+        [[saved should] beNil];
+    });
 });
 
 SPEC_END

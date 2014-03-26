@@ -14,10 +14,19 @@
 #import "Trip.h"
 #import "TripViewController.h"
 #import "User.h"
+#import <Reachability/Reachability.h>
+
+static NSUInteger kUserNoticesDefaultCapacity = 5;
+static NSString *kDefaultURLToTest = @"www.google.com";
 
 static NSString *cellIdentifier = @"TripsCollectionViewCell";
+static NSString *loginViewControllerIdentifier = @"LoginViewController";
 static NSString *tripViewControllerSegue = @"pushTripViewController";
 static NSString *loginViewControllerSegue = @"popoverLoginViewController";
+
+typedef NS_ENUM(NSUInteger, PBNoticeType) {
+    PBNoticeTypeLogin
+};
 
 @interface MainViewController ()
 
@@ -30,7 +39,7 @@ static NSString *loginViewControllerSegue = @"popoverLoginViewController";
 @property (nonatomic, strong) Trip *selectedPublicTrip;
 @property (nonatomic, strong) IBOutlet UIBarButtonItem *loginButton;
 @property (nonatomic, strong) UIPopoverController *loginPopoverController;
-@property (nonatomic, strong) UILabel *loginPrompt;
+@property (nonatomic, strong) NSMutableDictionary *userNotices;
 
 @end
 
@@ -40,24 +49,41 @@ static NSString *loginViewControllerSegue = @"popoverLoginViewController";
 {
     [super viewDidLoad];
     
-    if([User loggedIn])
+    _userNotices = [[NSMutableDictionary alloc] initWithCapacity:kUserNoticesDefaultCapacity];
+    Reachability *reach = [Reachability reachabilityWithHostname:kDefaultURLToTest];
+    reach.reachableBlock = ^(Reachability *reach)
     {
-        [self didFinishLoggingInSuccessfully];
-    }
-    else
+        dispatch_async(dispatch_get_main_queue(), ^
+        {
+            if([User loggedIn])
+            {
+                [self didFinishLoggingInSuccessfully];
+            }
+            else
+            {
+                [self showLoginNotice];
+            }
+            
+            [self loadPublicTrips];
+        });
+    };
+    reach.unreachableBlock = ^(Reachability *reach)
     {
-        [self showLoginNotice];
-    }
+        dispatch_async(dispatch_get_main_queue(), ^
+        {
+            if([User loggedIn])
+            {
+                [self loadSavedTrips];
+                [self didFinishLoggingInSuccessfully];
+            }
+            else
+            {
+                [self showLoginNotice];
+            }
+        });
+    };
     
-    [PBTripManager getAllTripsWithSuccess:^(NSArray *trips, NSInteger count, NSArray *errors)
-    {
-        self.publicTrips = trips;
-        [self.publicTripsCollectionView reloadData];
-    }
-    failure:^(NSError *error)
-    {
-        NSLog(@"Error: %@", error);
-    }];
+    [reach startNotifier];
 }
 
 #pragma mark - UICollectionsViewDataSource
@@ -143,12 +169,29 @@ static NSString *loginViewControllerSegue = @"popoverLoginViewController";
 #pragma mark - Actions
 - (void)login:(UIBarButtonItem *)button
 {
-    [self.loginPopoverController presentPopoverFromBarButtonItem:button permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+    if(self.loginPopoverController)
+    {
+        [self.loginPopoverController presentPopoverFromBarButtonItem:button permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+    }
+    else
+    {
+        UINavigationController *loginNavigationController = [self.storyboard instantiateViewControllerWithIdentifier:loginViewControllerIdentifier];
+        LoginViewController *loginViewController = (LoginViewController *)loginNavigationController.viewControllers[0];
+        loginViewController.delegate = self;
+        _loginPopoverController = [[UIPopoverController alloc] initWithContentViewController:loginNavigationController];
+        [self.loginPopoverController presentPopoverFromBarButtonItem:button permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    }
+}
+
+- (IBAction)refresh:(UIBarButtonItem *)button
+{
+    [self loadPublicTrips];
 }
 
 - (void)sync:(UIBarButtonItem *)button
 {
-    NSLog(@"sync");
+    [self loadUserTrips];
+    [self loadPublicTrips];
 }
 
 - (void)logout:(UIBarButtonItem *)button
@@ -156,12 +199,27 @@ static NSString *loginViewControllerSegue = @"popoverLoginViewController";
     [User logout];
     UIBarButtonItem *loginButton = [[UIBarButtonItem alloc] initWithTitle:@"Login" style:UIBarButtonItemStylePlain target:self action:@selector(login:)];
     self.navigationItem.leftBarButtonItem = loginButton;
-    self.navigationItem.rightBarButtonItem = nil;
+    
+    UIBarButtonItem *refreshButton = [[UIBarButtonItem alloc] initWithTitle:@"Refresh" style:UIBarButtonItemStylePlain target:self action:@selector(refresh:)];
+    self.navigationItem.rightBarButtonItem = refreshButton;
     
     self.userTrips = nil;
     [self.userTripsCollectionView reloadData];
     
     [self showLoginNotice];
+}
+
+- (void)loadPublicTrips
+{
+    [PBTripManager getAllTripsWithSuccess:^(NSArray *trips, NSInteger count, NSArray *errors)
+    {
+        self.publicTrips = trips;
+        [self.publicTripsCollectionView reloadData];
+    }
+    failure:^(NSError *error)
+    {
+        [self showErrorAlertWithMessage:@"Could not get public trips."];
+    }];
 }
 
 - (void)loadUserTrips
@@ -170,27 +228,57 @@ static NSString *loginViewControllerSegue = @"popoverLoginViewController";
     {
         self.userTrips = trips;
         [self.userTripsCollectionView reloadData];
+        [PBTripManager storeSavedTrips:self.userTrips];
     }
     failure:^(NSError *error)
     {
-        NSLog(@"Failed loading user trips.");
+        [self showErrorAlertWithMessage:@"Could not get your trips from server."];
     }];
+}
+
+- (void)loadSavedTrips
+{
+    self.userTrips = [PBTripManager loadSavedTrips];
+    [self.userTripsCollectionView reloadData];
 }
 
 #pragma mark - UI
 - (void)showLoginNotice
 {
-    _loginPrompt = [[UILabel alloc] initWithFrame:self.userTripsCollectionView.frame];
-    self.loginPrompt.text = @"Please login to view your trips.";
-    self.loginPrompt.textAlignment = NSTextAlignmentCenter;
-    self.loginPrompt.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:self.loginPrompt];
+    [self showNoticeType:PBNoticeTypeLogin aboveView:self.userTripsCollectionView text:@"Please login to view your trips."];
 }
 
 - (void)hideLoginNotice
 {
-    [self.loginPrompt removeFromSuperview];
-    self.loginPrompt = nil;
+    [self removeNoticeType:PBNoticeTypeLogin];
+}
+
+- (void)showNoticeType:(PBNoticeType)noticeType aboveView:(UIView *)view text:(NSString *)text
+{
+    UILabel *notice = [[UILabel alloc] initWithFrame:view.frame];
+    notice.text = text;
+    notice.textAlignment = NSTextAlignmentCenter;
+    notice.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:notice];
+    [self.view bringSubviewToFront:notice];
+    [self.userNotices setObject:notice forKey:@(noticeType)];
+}
+
+- (void)removeNoticeType:(PBNoticeType)noticeType
+{
+    UILabel *notice = self.userNotices[@(noticeType)];
+    
+    if(notice != nil)
+    {
+        [notice removeFromSuperview];
+        [self.userNotices removeObjectForKey:@(noticeType)];
+    }
+}
+
+- (void)showErrorAlertWithMessage:(NSString *)message
+{
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:message delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+    [alertView show];
 }
 
 #pragma mark - NSOjbect

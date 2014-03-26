@@ -10,6 +10,8 @@
 #import "PB.h"
 #import "Trip.h"
 
+static NSString *kSavedTrips = @"PBSavedTrips";
+
 @implementation PBTripManager
 
 + (void)getAllTripsWithSuccess:(void (^)(NSArray *trips, NSInteger count, NSArray *errors))success failure:(void (^)(NSError *error))failure
@@ -52,7 +54,7 @@
                 }
             }
             
-            success(trips, count, errors);
+            success([trips copy], count, errors);
         }
         else
         {
@@ -74,6 +76,29 @@
         
         [PBHTTPSessionManager finishedRequest];
     }];
+}
+
++ (void)storeSavedTrips:(NSArray *)trips
+{
+    if([trips isKindOfClass:[NSArray class]] || [trips isKindOfClass:[NSMutableArray class]])
+    {
+        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:trips];
+        [[NSUserDefaults standardUserDefaults] setObject:data forKey:kSavedTrips];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+}
+
++ (NSArray *)loadSavedTrips
+{
+    NSData *data = (NSData *)[[NSUserDefaults standardUserDefaults] objectForKey:kSavedTrips];
+    NSArray *trips = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    return trips;
+}
+
++ (void)removeSavedTrips
+{
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:kSavedTrips];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 @end

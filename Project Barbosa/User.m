@@ -7,6 +7,7 @@
 //
 
 #import "User.h"
+#import "PBTripManager.h"
 
 @implementation User
 
@@ -37,14 +38,18 @@ static NSString *_id = nil;
 + (void)setID:(NSString *)id
 {
     [[NSUserDefaults standardUserDefaults] setObject:id forKey:@"userID"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
     _id = id;
 }
 
 + (void)logout
 {
     _id = nil;
+    
+    [PBTripManager removeSavedTrips];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"userID"];
     [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:[[NSBundle mainBundle] bundleIdentifier]];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 @end

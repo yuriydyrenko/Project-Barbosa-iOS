@@ -34,7 +34,6 @@ static NSString *mapViewAnnotationIdentifier = @"TripViewMapAnnotation";
 	
     self.title = self.trip.name;
     self.itineraryItemsTableView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0);
-    [self addRightNavigationBarButtons];
     [self drawTripPath];
     [self.itineraryItemDetailView displayNoItineraryItemSelected];
 }
@@ -68,8 +67,8 @@ static NSString *mapViewAnnotationIdentifier = @"TripViewMapAnnotation";
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    NSDictionary *itemLocation = (NSDictionary *)[(ItineraryItem *)self.trip.itinerary[section] location];
-    return itemLocation[@"name"];
+    ItineraryItemLocation *itemLocation = (ItineraryItemLocation *)[(ItineraryItem *)self.trip.itinerary[section] location];
+    return itemLocation.name;
 }
 
 #pragma mark - UITableView Delegate
@@ -77,17 +76,6 @@ static NSString *mapViewAnnotationIdentifier = @"TripViewMapAnnotation";
 {
     ItineraryItem *item = self.trip.itinerary[indexPath.section];
     [self.itineraryItemDetailView displayDetailsForItineraryItem:item];
-}
-
-#pragma mark - Actions
-- (void)sync:(UIBarButtonItem *)button
-{
-    
-}
-
-- (void)share:(UIBarButtonItem *)share
-{
-    
 }
 
 #pragma mark - MapView
@@ -107,7 +95,7 @@ static NSString *mapViewAnnotationIdentifier = @"TripViewMapAnnotation";
         return;
     
     ItineraryItem *item;
-    NSDictionary *location;
+    ItineraryItemLocation *location;
     TripViewMapAnnotation *annotation;
     CLLocationCoordinate2D coordinate;
     CLLocationCoordinate2D *coordinates = calloc(self.trip.itinerary.count, sizeof(CLLocationCoordinate2D));
@@ -115,8 +103,8 @@ static NSString *mapViewAnnotationIdentifier = @"TripViewMapAnnotation";
     for(NSInteger ii = 0; ii < self.trip.itinerary.count; ii++)
     {
         item = (ItineraryItem *)self.trip.itinerary[ii];
-        location = (NSDictionary *)item.location;
-        coordinate = CLLocationCoordinate2DMake([[location objectForKey:@"latitude"] floatValue], [[location objectForKey:@"longitude"] floatValue]);
+        location = (ItineraryItemLocation *)item.location;
+        coordinate = CLLocationCoordinate2DMake(location.latitude, location.longitude);
         coordinates[ii] = coordinate;
         
         annotation = [[TripViewMapAnnotation alloc] initWithTitle:item.title coordinate:coordinate];
@@ -217,15 +205,6 @@ static NSString *mapViewAnnotationIdentifier = @"TripViewMapAnnotation";
     region.span = span;
     
     [self.mapView setRegion:region];
-}
-
-#pragma mark - UI
-- (void)addRightNavigationBarButtons
-{
-    UIBarButtonItem *syncButton = [[UIBarButtonItem alloc] initWithTitle:@"Sync" style:UIBarButtonItemStylePlain target:self action:@selector(sync:)];
-    UIBarButtonItem *shareButton = [[UIBarButtonItem alloc] initWithTitle:@"Share" style:UIBarButtonItemStylePlain target:self action:@selector(share:)];
-    NSArray *buttons = [NSArray arrayWithObjects:syncButton, shareButton, nil];
-    self.navigationItem.rightBarButtonItems = buttons;
 }
 
 #pragma mark - NSObject
