@@ -11,7 +11,9 @@
 static NSString *kItineraryItemID = @"kItineraryItemID";
 static NSString *kItineraryItemTitle = @"kItineraryItemTitle";
 static NSString *kItineraryItemDetails = @"kItineraryItemDetails";
-static NSString *kItineraryItemLocation = @"kItineraryItemLocation";
+static NSString *kItineraryItemLatitude = @"kItineraryItemLatitude";
+static NSString *kItineraryItemLongitude = @"kItineraryItemLongitude";
+static NSString *kItineraryItemLocationName = @"kItineraryItemLocationName";
 
 @implementation ItineraryItem
 
@@ -37,7 +39,9 @@ static NSString *kItineraryItemLocation = @"kItineraryItemLocation";
         self._id = [coder decodeObjectForKey:kItineraryItemID];
         self.title = [coder decodeObjectForKey:kItineraryItemTitle];
         self.details = [coder decodeObjectForKey:kItineraryItemDetails];
-        self.location = [coder decodeObjectForKey:kItineraryItemLocation];
+        self.latitude = [coder decodeObjectForKey:kItineraryItemLatitude];
+        self.longitude = [coder decodeObjectForKey:kItineraryItemLongitude];
+        self.locationName = [coder decodeObjectForKey:kItineraryItemLocationName];
     }
     
     return self;
@@ -48,7 +52,9 @@ static NSString *kItineraryItemLocation = @"kItineraryItemLocation";
     [coder encodeObject:self._id forKey:kItineraryItemID];
     [coder encodeObject:self.title forKey:kItineraryItemTitle];
     [coder encodeObject:self.details forKey:kItineraryItemDetails];
-    [coder encodeObject:self.location forKey:kItineraryItemLocation];
+    [coder encodeObject:self.latitude forKey:kItineraryItemLatitude];
+    [coder encodeObject:self.longitude forKey:kItineraryItemLongitude];
+    [coder encodeObject:self.locationName forKey:kItineraryItemLocationName];
 }
 
 + (JSONKeyMapper*)keyMapper
@@ -57,7 +63,10 @@ static NSString *kItineraryItemLocation = @"kItineraryItemLocation";
         @"_id": @"_id",
         @"title": @"title",
         @"description": @"details",
-        @"location": @"location"
+        @"location": @"location",
+        @"latitude": @"latitde",
+        @"longitude": @"longitude",
+        @"location_name": @"locationName"
     }];
 }
 

@@ -67,8 +67,8 @@ static NSString *mapViewAnnotationIdentifier = @"TripViewMapAnnotation";
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    ItineraryItemLocation *itemLocation = (ItineraryItemLocation *)[(ItineraryItem *)self.trip.itinerary[section] location];
-    return itemLocation.name;
+    ItineraryItem *item = (ItineraryItem *)self.trip.itinerary[section];
+    return item.locationName;
 }
 
 #pragma mark - UITableView Delegate
@@ -95,7 +95,6 @@ static NSString *mapViewAnnotationIdentifier = @"TripViewMapAnnotation";
         return;
     
     ItineraryItem *item;
-    ItineraryItemLocation *location;
     TripViewMapAnnotation *annotation;
     CLLocationCoordinate2D coordinate;
     CLLocationCoordinate2D *coordinates = calloc(self.trip.itinerary.count, sizeof(CLLocationCoordinate2D));
@@ -103,8 +102,7 @@ static NSString *mapViewAnnotationIdentifier = @"TripViewMapAnnotation";
     for(NSInteger ii = 0; ii < self.trip.itinerary.count; ii++)
     {
         item = (ItineraryItem *)self.trip.itinerary[ii];
-        location = (ItineraryItemLocation *)item.location;
-        coordinate = CLLocationCoordinate2DMake(location.latitude, location.longitude);
+        coordinate = CLLocationCoordinate2DMake([item.latitude floatValue], [item.longitude floatValue]);
         coordinates[ii] = coordinate;
         
         annotation = [[TripViewMapAnnotation alloc] initWithTitle:item.title coordinate:coordinate];

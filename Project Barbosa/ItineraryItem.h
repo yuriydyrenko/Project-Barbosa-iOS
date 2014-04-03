@@ -7,7 +7,6 @@
 //
 
 #import "JSONModel.h"
-#import "ItineraryItemLocation.h"
 
 @protocol ItineraryItem
 @end
@@ -17,7 +16,9 @@
 @property (nonatomic, copy) NSString<Optional> *_id;
 @property (nonatomic, copy) NSString<Optional> *title;
 @property (nonatomic, copy) NSString<Optional> *details;
-@property (nonatomic, strong) ItineraryItemLocation<Optional> *location;
+@property (nonatomic, copy) NSString<Optional> *latitude;
+@property (nonatomic, copy) NSString<Optional> *longitude;
+@property (nonatomic, copy) NSString<Optional> *locationName;
 
 - (id)initWithID:(NSString *)_id title:(NSString *)title;
 + (JSONKeyMapper*)keyMapper;

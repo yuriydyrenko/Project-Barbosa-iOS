@@ -50,6 +50,7 @@ static NSString *kSavedTrips = @"PBSavedTrips";
                 }
                 else
                 {
+                    NSLog(@"%@", error);
                     [errors addObject:error];
                 }
             }
